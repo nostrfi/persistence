@@ -23,7 +23,7 @@ jobs:
         with:
           script-path: build.cake
       - name: Create check run with code coverage Markdown report
-        uses: LouisBrunner/checks-action@v1.6.2
+        uses: LouisBrunner/checks-action@v2.0.0
         if: always()
         with:
           token: ${{ github.token }}

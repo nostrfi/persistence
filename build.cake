@@ -105,8 +105,8 @@ Task("Test")
          
       ReportGenerator(glob, outputDirectory, reportSettings);
           
-      if (BuildSystem.GitHubActions.IsRunningOnGitHubActions)
-      {
+     /*  if (BuildSystem.GitHubActions.IsRunningOnGitHubActions)
+      { */
         var summaryDirectory = Directory("./coverage/summary");
         var summarySettings = new ReportGeneratorSettings
         {
@@ -115,7 +115,7 @@ Task("Test")
         ReportGenerator(glob, summaryDirectory, summarySettings);
        
       
-      }
+      /* } */
 });
 
 Task("Pack")
