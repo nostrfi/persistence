@@ -30,4 +30,4 @@ jobs:
           name: Code Coverage Summary
           conclusion: ${{ job.status }}
           output: '{"summary":"Nostrfi Database Code Coverage Summary"}'
-          output_text_description_file: coverage/summary/SummaryGithub.md
+          output_text_description_file: /coverage/summary/SummaryGithub.md
