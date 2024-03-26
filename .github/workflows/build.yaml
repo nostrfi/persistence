@@ -22,3 +22,12 @@ jobs:
         uses: cake-build/cake-action@v2
         with:
           script-path: build.cake
+      - name: Create check run with code coverage Markdown report
+        uses: LouisBrunner/checks-action@v1.6.2
+        if: always()
+        with:
+          token: ${{ github.token }}
+          name: Code Coverage Summary
+          conclusion: ${{ job.status }}
+          output: '{"summary":"Nostrfi Database Code Coverage Summary"}'
+          output_text_description_file: coverage/summary/SummaryGithub.md

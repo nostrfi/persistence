@@ -100,7 +100,7 @@ Task("Test")
      
       var reportSettings = new ReportGeneratorSettings
       {
-         ArgumentCustomization = args => args.Append($"-reportTypes:Html;Cobertura")
+         ArgumentCustomization = args => args.Append($"-reportTypes:HtmlInline_AzurePipelines_Dark;Cobertura")
       };
          
       ReportGenerator(glob, outputDirectory, reportSettings);
@@ -130,6 +130,7 @@ Task("Pack")
         NoRestore = true,
         MSBuildSettings = new DotNetMSBuildSettings()
                         .WithProperty("PackageVersion", version)
+                        .WithProperty("Copyright", $"© Copyright Threenine.co.uk {DateTime.Now.Year}")
                         .WithProperty("Version", version)
     };
     
