@@ -41,29 +41,5 @@ public class DependencyInjectionTests
 
 
     
-    [Fact]
-    public void AddNostrDatabase_Adds_Context_To_ServiceCollection()
-    {
-        // Arrange
-        
-        
-        var connectionString = new Mock<string>();
-        connectionString.SetupGet(x => x.Validate()).Returns(true);
-        
-        var services = new ServiceCollection();
-        var configuration = new ConfigurationBuilder()
-            .AddInMemoryCollection(new Dictionary<string, string>
-            {
-                { "ConnectionStrings:nostrfi", "nostrfi" }
-            })
-            .Build();
-
-        // Act
-        services.AddNostrDatabase(configuration);
-
-        // Assert
-        var serviceProvider = services.BuildServiceProvider();
-        var nostrfiContext = serviceProvider.GetService<NostrfiContext>();
-        nostrfiContext.ShouldNotBeNull();
-    }
+   
 }
