@@ -1,5 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
+        <IsPackable>True</IsPackable>
         <AssemblyName>Nostrfi.Database.Persistence.Entities</AssemblyName>
     </PropertyGroup>
 
