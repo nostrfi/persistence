@@ -1,6 +1,6 @@
 #addin nuget:?package=Cake.Coverlet&version=4.0.1
 #tool dotnet:?package=GitVersion.Tool&version=5.12.0
-#tool dotnet:?package=dotnet-reportgenerator-globaltool&version=5.2.2
+#tool dotnet:?package=dotnet-reportgenerator-globaltool&version=5.2.4
 
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
