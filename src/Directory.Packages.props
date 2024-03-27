@@ -3,7 +3,6 @@
         <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     </PropertyGroup>
     <ItemGroup>
-        <PackageVersion Include="AmeritFleet.Configuration" Version="0.2.25" />
         <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="8.0.1" />
         <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.1" />
         <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.1" />

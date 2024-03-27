@@ -105,17 +105,12 @@ Task("Test")
          
       ReportGenerator(glob, outputDirectory, reportSettings);
           
-     /*  if (BuildSystem.GitHubActions.IsRunningOnGitHubActions)
-      { */
-        var summaryDirectory = Directory("./coverage/summary");
+         var summaryDirectory = Directory("./coverage/summary");
         var summarySettings = new ReportGeneratorSettings
         {
            ArgumentCustomization = args => args.Append($"-reportTypes:MarkdownSummaryGithub")
         };
         ReportGenerator(glob, summaryDirectory, summarySettings);
-       
-      
-      /* } */
 });
 
 Task("Pack")
@@ -130,16 +125,12 @@ Task("Pack")
         NoRestore = true,
         MSBuildSettings = new DotNetMSBuildSettings()
                         .WithProperty("PackageVersion", version)
-                        .WithProperty("Copyright", $"© Copyright Threenine.co.uk {DateTime.Now.Year}")
+                        .WithProperty("Copyright", $"© Copyright nostrfi.net {DateTime.Now.Year}")
                         .WithProperty("Version", version)
     };
     
     DotNetPack(solution, settings);
  });
- 
- 
-
-
 
 Task("Default")
        .IsDependentOn("Clean")
