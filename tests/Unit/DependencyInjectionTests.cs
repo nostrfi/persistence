@@ -1,14 +1,11 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Moq;
 using Nostrfi.Database.Persistence.Exceptions;
-using Threenine.Database.Extensions;
 
 namespace Nostrfi.Database.Persistence.Unit.Tests;
 
 public class DependencyInjectionTests
 {
-    
     [Fact]
     public void AddNostrDatabase_Throws_Exception_Empty_ConnectionString()
     {
@@ -21,7 +18,7 @@ public class DependencyInjectionTests
             .Build();
 
         // Act
-        Should.Throw<NostrDbException>(() =>  services.AddNostrDatabase(configuration) ) ;
+        Should.Throw<NostrDbException>(() => services.AddNostrDatabase(configuration));
     }
 
     [Fact]
@@ -36,10 +33,6 @@ public class DependencyInjectionTests
             .Build();
 
         // Act
-         Should.Throw<NostrDbException>(() =>  services.AddNostrDatabase(configuration) ) ;
+        Should.Throw<NostrDbException>(() => services.AddNostrDatabase(configuration));
     }
-
-
-    
-   
 }

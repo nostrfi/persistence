@@ -7,7 +7,7 @@ public class NostrfiContext : DbContext
     public NostrfiContext(DbContextOptions<NostrfiContext> options) : base(options)
     {
     }
-    
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDefaultSchema(DefaultSchema.Name);
@@ -15,7 +15,7 @@ public class NostrfiContext : DbContext
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         base.OnModelCreating(modelBuilder);
     }
-    
+
     public async Task MigrateAsync()
     {
         await Database.MigrateAsync();

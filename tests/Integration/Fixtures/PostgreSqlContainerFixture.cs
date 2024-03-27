@@ -5,12 +5,13 @@ namespace Nostrfi.Database.Persistence.Integration.Tests.Fixtures;
 
 public class PostgreSqlContainerFixture
 {
-    private readonly PostgreSqlContainer  _container = new PostgreSqlBuilder()
+    private readonly PostgreSqlContainer _container = new PostgreSqlBuilder()
         .WithImage("postgres:15.1")
         .Build();
-    
+
     public string ConnectionString => _container.GetConnectionString();
     public string ContainerId => _container.Id;
+
     public async Task InitializeAsync()
     {
         await _container.StartAsync();

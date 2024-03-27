@@ -10,18 +10,18 @@
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Relational"/>
         <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions"/>
-        <PackageReference Include="Npgsql" />
-        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
-        <PackageReference Include="Threenine.Database.Configuration" />
+        <PackageReference Include="Npgsql"/>
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL"/>
+        <PackageReference Include="Threenine.Database.Configuration"/>
     </ItemGroup>
     <ItemGroup>
         <InternalsVisibleTo Include="Unit.Tests"/>
     </ItemGroup>
-    
+
     <ItemGroup>
         <Using Include="Microsoft.EntityFrameworkCore"/>
         <Using Include="Microsoft.EntityFrameworkCore.Metadata.Builders"/>
-        <Using Include="Threenine" />
-        <Using Include="Threenine.Configurations.PostgreSql" />
+        <Using Include="Threenine"/>
+        <Using Include="Threenine.Configurations.PostgreSql"/>
     </ItemGroup>
 </Project>

@@ -9,9 +9,9 @@ public static class Initialiser
     {
         using var scope = app.Services.CreateScope();
         var context = scope.ServiceProvider.GetRequiredService<NostrfiContext>();
-        context.Migrate();  
+        context.Migrate();
     }
-    
+
     public static async Task UseNostrfiDatabaseAsync(this WebApplication app)
     {
         using var scope = app.Services.CreateScope();

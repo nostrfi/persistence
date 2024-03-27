@@ -19,7 +19,7 @@ public class EventsConfigurationTests
         _modelBuilder = new ModelBuilder(NpgsqlConventionSetBuilder.Build());
         _entityTypeConfiguration = new EventsConfiguration();
     }
-    
+
     [Fact]
     [Description("Should create a Events Entity")]
     public void ShouldBuildLocationEntity()
@@ -34,7 +34,7 @@ public class EventsConfigurationTests
         //Assert
         entityType.ShouldNotBeNull();
     }
-    
+
     [Fact]
     [Description("Should have a UserRoles Relation")]
     public void ShouldHaveUserLocationsRelationDefined()
@@ -46,6 +46,5 @@ public class EventsConfigurationTests
         var entityType = model.FindEntityType(typeof(Events));
         // Assert
         entityType?.FindNavigation(nameof(Events.Tags)).ShouldNotBeNull();
-       
     }
 }

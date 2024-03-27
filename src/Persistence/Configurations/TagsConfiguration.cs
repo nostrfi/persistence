@@ -7,7 +7,7 @@ public class TagsConfiguration : IEntityTypeConfiguration<Tags>
     public void Configure(EntityTypeBuilder<Tags> builder)
     {
         builder.HasKey(e => e.Id);
-        
+
         builder.Property(e => e.Id)
             .HasColumnName(nameof(Tags.Id).ToSnakeCase())
             .HasColumnType(ColumnTypes.Text)

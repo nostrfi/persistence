@@ -10,20 +10,21 @@ public static class DependencyInjection
     public static IServiceCollection AddNostrDatabase(this IServiceCollection services, IConfiguration configuration)
     {
         var connectionString = configuration.GetConnectionString(ConnectionStringNames.Nostr);
-        if (string.IsNullOrEmpty(connectionString)) throw new NostrDbException(PersistenceErrors.NoConnectionStringDefined);
+        if (string.IsNullOrEmpty(connectionString))
+            throw new NostrDbException(PersistenceErrors.NoConnectionStringDefined);
 
         if (!connectionString.Validate()) throw new NostrDbException(PersistenceErrors.ConnectionStringsInvalid);
 
         services.AddDbContext<NostrfiContext>(options =>
+        {
+            options.UseNpgsql(connectionString, x =>
             {
-                options.UseNpgsql(connectionString, x =>
-                {
-                    x.MigrationsAssembly(typeof(NostrfiContext).Assembly.FullName);
-                    x.SetPostgresVersion(15, 0);
-                    x.EnableRetryOnFailure(10);
-                });
+                x.MigrationsAssembly(typeof(NostrfiContext).Assembly.FullName);
+                x.SetPostgresVersion(15, 0);
+                x.EnableRetryOnFailure(10);
             });
-        
+        });
+
 
         return services;
     }

@@ -3,6 +3,6 @@
         <AssemblyName>Integration.Tests</AssemblyName>
     </PropertyGroup>
     <ItemGroup>
-      <ProjectReference Include="..\..\src\Persistence\Persistence.csproj" />
+        <ProjectReference Include="..\..\src\Persistence\Persistence.csproj"/>
     </ItemGroup>
 </Project>

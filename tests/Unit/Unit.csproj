@@ -1,12 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <AssemblyName>Unit.Tests</AssemblyName>
-      
+
     </PropertyGroup>
     <ItemGroup>
-      <ProjectReference Include="..\..\src\Persistence\Persistence.csproj" />
+        <ProjectReference Include="..\..\src\Persistence\Persistence.csproj"/>
     </ItemGroup>
-   
-  
+
 
 </Project>
