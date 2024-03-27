@@ -3,7 +3,6 @@ var GITHUB_TOKEN = Argument("GITHUB_TOKEN", "");
 var NUGET_API_KEY = Argument("NUGET_API_KEY", "");
 
 Task("Github")
-  .IsDependentOn("Pack")
   .Does(context => {
   if (BuildSystem.GitHubActions.IsRunningOnGitHubActions)
    {
@@ -18,8 +17,9 @@ Task("Github")
       } 
    } 
  }); 
+ 
 Task("Nuget")
- .IsDependentOn("Pack")
+ .IsDependentOn("Github")
  .Does(context => {
    if (BuildSystem.GitHubActions.IsRunningOnGitHubActions)
    {
@@ -38,5 +38,4 @@ Task("Nuget")
  Task("Default")
         .IsDependentOn("Github")
         .IsDependentOn("Nuget");
-        
  RunTarget(target);

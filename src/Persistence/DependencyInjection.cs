@@ -10,6 +10,7 @@ public static class DependencyInjection
     public static IServiceCollection AddNostrDatabase(this IServiceCollection services, IConfiguration configuration)
     {
         var connectionString = configuration.GetConnectionString(ConnectionStringNames.Nostr);
+        
         if (string.IsNullOrEmpty(connectionString))
             throw new NostrDbException(PersistenceErrors.NoConnectionStringDefined);
 
@@ -24,8 +25,7 @@ public static class DependencyInjection
                 x.EnableRetryOnFailure(10);
             });
         });
-
-
+        
         return services;
     }
 }

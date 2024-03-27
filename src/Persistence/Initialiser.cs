@@ -1,8 +1,9 @@
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Nostrfi.Database.Persistence;
-
+[ExcludeFromCodeCoverage]
 public static class Initialiser
 {
     public static void UseNostrfiDatabase(this WebApplication app)

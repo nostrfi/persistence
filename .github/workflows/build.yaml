@@ -24,10 +24,34 @@ jobs:
           script-path: build.cake
       - name: Create check run with code coverage Markdown report
         uses: LouisBrunner/checks-action@v2.0.0
-        if: always()
+        if: success()
         with:
           token: ${{ github.token }}
           name: Code Coverage Summary
           conclusion: ${{ job.status }}
           output: '{"summary":"Nostrfi Database Code Coverage Summary"}'
           output_text_description_file: coverage/summary/SummaryGithub.md
+      - name: upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: nuget-packages
+          path: artifacts
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download All Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+      - name: Check out Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Run the Cake script
+        uses: cake-build/cake-action@v2
+        with:
+          script-path: publish.cake
+          arguments: |
+            GITHUB_TOKEN: ${{ github.token }}
+            NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}

@@ -1,3 +1,4 @@
+using Nostrfi.Database.Persistence.Entities;
 using Threenine.Database.Extensions;
 
 namespace Nostrfi.Database.Persistence.Configurations;
@@ -6,6 +7,8 @@ public class TagsConfiguration : IEntityTypeConfiguration<Tags>
 {
     public void Configure(EntityTypeBuilder<Tags> builder)
     {
+        builder.ToTable(nameof(Tags).ToSnakeCase());
+        
         builder.HasKey(e => e.Id);
 
         builder.Property(e => e.Id)

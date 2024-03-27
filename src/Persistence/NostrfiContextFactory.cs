@@ -1,7 +1,8 @@
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.EntityFrameworkCore.Design;
 
 namespace Nostrfi.Database.Persistence;
-
+[ExcludeFromCodeCoverage]
 /// <summary>
 ///     ///     This is a factory class that is used by the EF Core tools to create an instance of the application db
 ///     context

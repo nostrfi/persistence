@@ -24,7 +24,7 @@ namespace Nostrfi.Database.Persistence.Migrations
             NpgsqlModelBuilderExtensions.HasPostgresExtension(modelBuilder, "uuid-ossp");
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Nostrfi.Events", b =>
+            modelBuilder.Entity("Nostrfi.Database.Persistence.Entities.Events", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("text")
@@ -54,10 +54,10 @@ namespace Nostrfi.Database.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Events", "nostrfi");
+                    b.ToTable("events", "nostrfi");
                 });
 
-            modelBuilder.Entity("Nostrfi.Tags", b =>
+            modelBuilder.Entity("Nostrfi.Database.Persistence.Entities.Tags", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("text")
@@ -82,12 +82,12 @@ namespace Nostrfi.Database.Persistence.Migrations
 
                     b.HasIndex("EventId");
 
-                    b.ToTable("Tags", "nostrfi");
+                    b.ToTable("tags", "nostrfi");
                 });
 
-            modelBuilder.Entity("Nostrfi.Tags", b =>
+            modelBuilder.Entity("Nostrfi.Database.Persistence.Entities.Tags", b =>
                 {
-                    b.HasOne("Nostrfi.Events", "Event")
+                    b.HasOne("Nostrfi.Database.Persistence.Entities.Events", "Event")
                         .WithMany("Tags")
                         .HasForeignKey("EventId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -96,7 +96,7 @@ namespace Nostrfi.Database.Persistence.Migrations
                     b.Navigation("Event");
                 });
 
-            modelBuilder.Entity("Nostrfi.Events", b =>
+            modelBuilder.Entity("Nostrfi.Database.Persistence.Entities.Events", b =>
                 {
                     b.Navigation("Tags");
                 });

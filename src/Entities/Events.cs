@@ -1,4 +1,4 @@
-﻿namespace Nostrfi;
+﻿namespace Nostrfi.Database.Persistence.Entities;
 
 /// <summary>
 ///     The only object that exists in the Nostr Protocol is an Event. An Event is a JSON object that contains a

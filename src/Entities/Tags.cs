@@ -1,4 +1,4 @@
-namespace Nostrfi;
+namespace Nostrfi.Database.Persistence.Entities;
 
 public class Tags
 {

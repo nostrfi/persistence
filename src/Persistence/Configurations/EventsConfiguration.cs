@@ -1,4 +1,5 @@
-﻿using Threenine.Database.Extensions;
+﻿using Nostrfi.Database.Persistence.Entities;
+using Threenine.Database.Extensions;
 
 namespace Nostrfi.Database.Persistence.Configurations;
 
@@ -6,6 +7,8 @@ public class EventsConfiguration : IEntityTypeConfiguration<Events>
 {
     public void Configure(EntityTypeBuilder<Events> builder)
     {
+        builder.ToTable(nameof(Events).ToSnakeCase());
+        
         builder.HasKey(e => e.Id);
 
         builder.Property(e => e.Id)

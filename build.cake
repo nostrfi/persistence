@@ -17,6 +17,7 @@ Task("Clean")
     else
     {
         CleanDirectories("./coverage");
+        CleanDirectories("./artifacts");
         DotNetClean(solution);
     }
 });
@@ -84,7 +85,8 @@ Task("Test")
                CoverletOutputFormat = CoverletOutputFormat.cobertura,
                CoverletOutputDirectory =  coverageOutput,
                CoverletOutputName =codeCoverageOutputName,
-               ArgumentCustomization = args => args.Append($"--logger trx")
+               ArgumentCustomization = args => args.Append($"--logger trx"),
+               ExcludeByFile = ["**/*Migrations/*.cs"]
           };
                   
           Information($"Running Tests : { project.ToString()}");
@@ -128,7 +130,9 @@ Task("Pack")
                         .WithProperty("Copyright", $"© Copyright nostrfi.net {DateTime.Now.Year}")
                         .WithProperty("Version", version)
     }; 
+    
     DotNetPack(solution, settings);
+     Information($"Packed : { solution }");
  });
 
 Task("Default")
@@ -137,4 +141,5 @@ Task("Default")
        .IsDependentOn("Build")
        .IsDependentOn("Test")
        .IsDependentOn("Pack");
+       
 RunTarget(target);

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Nostrfi.Database.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class nip01 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,7 +18,7 @@ namespace Nostrfi.Database.Persistence.Migrations
                 .Annotation("Npgsql:PostgresExtension:uuid-ossp", ",,");
 
             migrationBuilder.CreateTable(
-                name: "Events",
+                name: "events",
                 schema: "nostrfi",
                 columns: table => new
                 {
@@ -31,11 +31,11 @@ namespace Nostrfi.Database.Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Events", x => x.id);
+                    table.PrimaryKey("PK_events", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Tags",
+                name: "tags",
                 schema: "nostrfi",
                 columns: table => new
                 {
@@ -46,20 +46,20 @@ namespace Nostrfi.Database.Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tags", x => x.id);
+                    table.PrimaryKey("PK_tags", x => x.id);
                     table.ForeignKey(
-                        name: "FK_Tags_Events_event_id",
+                        name: "FK_tags_events_event_id",
                         column: x => x.event_id,
                         principalSchema: "nostrfi",
-                        principalTable: "Events",
+                        principalTable: "events",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tags_event_id",
+                name: "IX_tags_event_id",
                 schema: "nostrfi",
-                table: "Tags",
+                table: "tags",
                 column: "event_id");
         }
 
@@ -67,11 +67,11 @@ namespace Nostrfi.Database.Persistence.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Tags",
+                name: "tags",
                 schema: "nostrfi");
 
             migrationBuilder.DropTable(
-                name: "Events",
+                name: "events",
                 schema: "nostrfi");
         }
     }
