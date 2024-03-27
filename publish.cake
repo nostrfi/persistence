@@ -1,7 +1,8 @@
-
 var target = Argument("target", "Default");
+var GITHUB_TOKEN = Argument("GITHUB_TOKEN", "");
+var NUGET_API_KEY = Argument("NUGET_API_KEY", "");
 
-Task("PublishGithub")
+Task("Github")
   .IsDependentOn("Pack")
   .Does(context => {
   if (BuildSystem.GitHubActions.IsRunningOnGitHubActions)
@@ -10,23 +11,23 @@ Task("PublishGithub")
       {
         Information("Publishing {0}...", file.GetFilename().FullPath);
         DotNetNuGetPush(file, new DotNetNuGetPushSettings {
-              ApiKey = EnvironmentVariable("GITHUB_TOKEN"),
-              Source = "https://nuget.pkg.github.com/geekiam/index.json",
+              ApiKey = GITHUB_TOKEN,
+              Source = "https://nuget.pkg.github.com/nostrfi/index.json",
               SkipDuplicate = true
         });
       } 
    } 
  }); 
-Task("PublishNuget")
+Task("Nuget")
  .IsDependentOn("Pack")
  .Does(context => {
    if (BuildSystem.GitHubActions.IsRunningOnGitHubActions)
    {
-     foreach(var file in GetFiles("./.artifacts/*.nupkg"))
+     foreach(var file in GetFiles("./artifacts/*.nupkg"))
      {
        Information("Publishing {0}...", file.GetFilename().FullPath);
        DotNetNuGetPush(file, new DotNetNuGetPushSettings {
-          ApiKey = context.EnvironmentVariable("NUGET_API_KEY"),
+          ApiKey = NUGET_API_KEY,
           Source = "https://api.nuget.org/v3/index.json",
           SkipDuplicate = true
        });
@@ -35,7 +36,7 @@ Task("PublishNuget")
  }); 
  
  Task("Default")
-        .IsDependentOn("PublishGithub")
-        .IsDependentOn("PublishNuget");
+        .IsDependentOn("Github")
+        .IsDependentOn("Nuget");
         
  RunTarget(target);

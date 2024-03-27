@@ -127,8 +127,7 @@ Task("Pack")
                         .WithProperty("PackageVersion", version)
                         .WithProperty("Copyright", $"© Copyright nostrfi.net {DateTime.Now.Year}")
                         .WithProperty("Version", version)
-    };
-    
+    }; 
     DotNetPack(solution, settings);
  });
 
