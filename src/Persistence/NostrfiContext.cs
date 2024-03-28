@@ -7,7 +7,7 @@ public class NostrfiContext : DbContext
     public NostrfiContext(DbContextOptions<NostrfiContext> options) : base(options)
     {
     }
-
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDefaultSchema(DefaultSchema.Name);
