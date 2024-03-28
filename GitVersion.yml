@@ -1,17 +1,18 @@
 mode: Mainline
 branches:
-  master:
+  main:
     tag: ''
     increment: inherit
     source-branches:
-      - master
+      - main
+      - develop
     is-release-branch: true
+  develop:
+    increment: Minor
+    tag: beta
   feature:
     increment: Minor
     tag: alpha
-  release:
-    increment: Minor
-    tag: beta
     is-release-branch: false
   hotfix:
     increment: Patch
