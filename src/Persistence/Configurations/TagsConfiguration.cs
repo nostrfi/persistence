@@ -21,8 +21,8 @@ public class TagsConfiguration : IEntityTypeConfiguration<Tags>
             .HasColumnType(ColumnTypes.Text)
             .IsRequired();
 
-        builder.Property(e => e.Tag)
-            .HasColumnName(nameof(Tags.Tag).ToSnakeCase())
+        builder.Property(e => e.Name)
+            .HasColumnName(nameof(Tags.Name).ToSnakeCase())
             .IsRequired();
 
         builder.Property(e => e.Value)

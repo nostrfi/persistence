@@ -10,6 +10,13 @@ public class EventsConfiguration : IEntityTypeConfiguration<Events>
         builder.ToTable(nameof(Events).ToSnakeCase());
         
         builder.HasKey(e => e.Id);
+        builder.HasIndex(e => new { e.Id, e.Identifier });
+
+        builder.Property(e => e.Identifier)
+            .HasColumnName(nameof(Events.Identifier).ToSnakeCase())
+            .HasColumnType(ColumnTypes.UniqueIdentifier)
+            .HasDefaultValueSql(PostgreExtensions.UUIDAlgorithm)
+            .IsRequired();
 
         builder.Property(e => e.Id)
             .HasColumnName(nameof(Events.Id).ToSnakeCase())

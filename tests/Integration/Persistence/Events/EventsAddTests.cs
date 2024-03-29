@@ -38,7 +38,7 @@ public class EventsAddTests(PostgreSqlContainerFixture fixture): BasePersistence
             .With(x => x.Signature = "908a15e46fb4d8675bab026fc230a0e3542bfade63da02d542fb78b2a8513fcd0092619a2c8c1221e581946e0191f2af505dfdf8657a414dbca329186f009262")
             .With(x => x.Tags = Builder<Tags>.CreateListOfSize(1)
                 .TheFirst(1)
-                .With(t => t.Tag = "e")
+                .With(t => t.Name = "e")
                 .With(t => t.Value = "3da979448d9ba263864c4d6f14984c423a3838364ec255f03c7904b1ae77f206")
                 .Build().ToList()
             )

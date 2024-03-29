@@ -1,6 +1,6 @@
 namespace Nostrfi.Database.Persistence;
 
-internal static class DefaultSchema
+internal static class Schema
 {
     internal static string Name => "nostrfi";
 }
