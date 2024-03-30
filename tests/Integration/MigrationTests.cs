@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Nostrfi.Database.Persistence.Entities;
 using Nostrfi.Database.Persistence.Integration.Tests.Collections;
 using Nostrfi.Database.Persistence.Integration.Tests.Fixtures;
+using Nostrfi.Relay.Persistence;
 
 namespace Nostrfi.Database.Persistence.Integration.Tests;
 

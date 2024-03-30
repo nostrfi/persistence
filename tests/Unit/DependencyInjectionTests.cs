@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Nostrfi.Database.Persistence.Exceptions;
+using Nostrfi.Relay.Persistence;
+using Nostrfi.Relay.Persistence.Exceptions;
 
 namespace Nostrfi.Database.Persistence.Unit.Tests;
 

@@ -1,9 +1,7 @@
-﻿using System.Text.Json.Serialization;
-using Nostrfi.Database.Persistence.Entities;
+﻿using Nostrfi.Database.Persistence.Entities;
 using Threenine.Database.Extensions;
-using Threenine.Database.Configuration.PostgreSql;
 
-namespace Nostrfi.Database.Persistence.Configurations;
+namespace Nostrfi.Relay.Persistence.Configurations;
 
 public class EventsConfiguration : IEntityTypeConfiguration<Events>
 {
@@ -23,8 +21,6 @@ public class EventsConfiguration : IEntityTypeConfiguration<Events>
             .HasColumnName(nameof(Events.Received).ToSnakeCase())
             .HasColumnType(ColumnTypes.DateTimeOffSet)
             .IsRequired();
-
-    
       
         builder.OwnsOne(ne => ne.Event, b => { b.ToJson().OwnsOne(t => t.Tags, nt => { nt.ToJson();}); });
     

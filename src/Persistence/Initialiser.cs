@@ -2,7 +2,7 @@ using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Nostrfi.Database.Persistence;
+namespace Nostrfi.Relay.Persistence;
 [ExcludeFromCodeCoverage]
 public static class Initialiser
 {

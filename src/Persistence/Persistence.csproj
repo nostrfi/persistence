@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <IsPackable>True</IsPackable>
-        <AssemblyName>Nostrfi.Database.Persistence</AssemblyName>
+        <AssemblyName>Nostrfi.Relay.Persistence</AssemblyName>
     </PropertyGroup>
     <ItemGroup>
         <FrameworkReference Include="Microsoft.AspNetCore.App"/>
@@ -13,20 +13,20 @@
         <ProjectReference Include="..\Entities\Entities.csproj"/>
     </ItemGroup>
     <ItemGroup>
-        <EmbeddedResource Update="PersistenceErrors.resx">
-            <Generator>ResXFileCodeGenerator</Generator>
-            <LastGenOutput>PersistenceErrors.Designer.cs</LastGenOutput>
-        </EmbeddedResource>
-    </ItemGroup>
-    <ItemGroup>
-        <Compile Update="PersistenceErrors.Designer.cs">
-            <DesignTime>True</DesignTime>
-            <AutoGen>True</AutoGen>
-            <DependentUpon>PersistenceErrors.resx</DependentUpon>
-        </Compile>
-    </ItemGroup>
-    <ItemGroup>
         <Folder Include="Extensions\"/>
         <Folder Include="Migrations\"/>
+    </ItemGroup>
+    <ItemGroup>
+      <EmbeddedResource Update="PersistenceErrors.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>PersistenceErrors.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+    </ItemGroup>
+    <ItemGroup>
+      <Compile Update="PersistenceErrors.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>PersistenceErrors.resx</DependentUpon>
+      </Compile>
     </ItemGroup>
 </Project>

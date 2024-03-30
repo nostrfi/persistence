@@ -1,9 +1,9 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Nostrfi.Database.Persistence.Exceptions;
+using Nostrfi.Relay.Persistence.Exceptions;
 using Threenine.Database.Extensions;
 
-namespace Nostrfi.Database.Persistence;
+namespace Nostrfi.Relay.Persistence;
 
 public static class DependencyInjection
 {

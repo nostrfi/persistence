@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Nostrfi.Relay.Persistence;
 using Testcontainers.PostgreSql;
 
 namespace Nostrfi.Database.Persistence.Integration.Tests.Fixtures;

@@ -1,4 +1,4 @@
-namespace Nostrfi.Database.Persistence;
+namespace Nostrfi.Relay.Persistence;
 
 internal static class Schema
 {
