@@ -16,11 +16,11 @@ public static class DependencyInjection
 
         if (!connectionString.Validate()) throw new NostrDbException(PersistenceErrors.ConnectionStringsInvalid);
 
-        services.AddDbContext<NostrfiContext>(options =>
+        services.AddDbContext<NostrContext>(options =>
         {
             options.UseNpgsql(connectionString, x =>
             {
-                x.MigrationsAssembly(typeof(NostrfiContext).Assembly.FullName);
+                x.MigrationsAssembly(typeof(NostrContext).Assembly.FullName);
                 x.SetPostgresVersion(15, 0);
                 x.EnableRetryOnFailure(10);
             });

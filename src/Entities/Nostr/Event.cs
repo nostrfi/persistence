@@ -1,6 +1,8 @@
+using System.Collections.Specialized;
+
 namespace Nostrfi.Database.Persistence.Entities.Nostr;
 
-public abstract class Event
+public sealed class Event
 {
   
   public string Id { get; set; } = string.Empty;
@@ -8,7 +10,7 @@ public abstract class Event
   public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.UtcNow;
   public int Kind { get; set; }
   public string Content { get; set; } = string.Empty;
-  public string Signature { get; set; } = string.Empty;
-  public List<Tags> Tags { get; set; } = [];
+  public string Sig { get; set; } = string.Empty;
+  public List<string[]> Tags { get; set; } = [];
  
 }

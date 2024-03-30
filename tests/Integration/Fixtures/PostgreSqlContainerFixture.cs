@@ -15,11 +15,11 @@ public class PostgreSqlContainerFixture
     public async Task InitializeAsync()
     {
         await _container.StartAsync();
-        var options = new DbContextOptionsBuilder<NostrfiContext>()
+        var options = new DbContextOptionsBuilder<NostrContext>()
             .UseNpgsql(_container.GetConnectionString())
             .Options;
 
-        var context = new NostrfiContext(options);
+        var context = new NostrContext(options);
         await context.Database.MigrateAsync();
     }
 

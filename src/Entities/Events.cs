@@ -3,8 +3,11 @@
 namespace Nostrfi.Database.Persistence.Entities;
 
 
-public class Events : Event
+public class Events 
 {
     public Guid Identifier { get; set; }
-    public DateTimeOffset Received { get; set; }
+    public DateTimeOffset Received { get;  set; } = DateTimeOffset.UtcNow;
+    
+    public Event Event { get; set; }
+    
 }

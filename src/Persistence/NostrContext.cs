@@ -1,27 +1,30 @@
 using System.Reflection;
+using Microsoft.EntityFrameworkCore.Internal;
 using Nostrfi.Database.Persistence.Entities;
 
 namespace Nostrfi.Database.Persistence;
 
-public class NostrfiContext : DbContext
+public class NostrContext : DbContext
 {
-    public NostrfiContext(DbContextOptions<NostrfiContext> options) : base(options)
+    public NostrContext(DbContextOptions<NostrContext> options) : base(options)
     {
     }
-    
+
+    public DbSet<Events> Events { get; set; } 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDefaultSchema(Schema.Name);
         modelBuilder.HasPostgresExtension(PostgreExtensions.UUIDGenerator);
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+     
         base.OnModelCreating(modelBuilder);
     }
 
     private void TimeStamp()
     {
         var events = ChangeTracker.Entries()
-            .Where(e => e is { Entity: Events, State: EntityState.Added or EntityState.Modified })
-            .Select(x => x.Entity).Cast<Events>().ToList();
+            .Where(e => e is { Entity: Entities.Events, State: EntityState.Added or EntityState.Modified })
+            .Select(x => x.Entity).Cast<Entities.Events>().ToList();
         
         events.ForEach(e =>
         {

@@ -6,17 +6,17 @@ namespace Nostrfi.Database.Persistence;
 [ExcludeFromCodeCoverage]
 public static class Initialiser
 {
-    public static void UseNostrfiDatabase(this WebApplication app)
+    public static void UseNostrDatabase(this WebApplication app)
     {
         using var scope = app.Services.CreateScope();
-        var context = scope.ServiceProvider.GetRequiredService<NostrfiContext>();
+        var context = scope.ServiceProvider.GetRequiredService<NostrContext>();
         context.Migrate();
     }
 
-    public static async Task UseNostrfiDatabaseAsync(this WebApplication app)
+    public static async Task UseNostrDatabaseAsync(this WebApplication app)
     {
         using var scope = app.Services.CreateScope();
-        var context = scope.ServiceProvider.GetRequiredService<NostrfiContext>();
+        var context = scope.ServiceProvider.GetRequiredService<NostrContext>();
         await context.MigrateAsync();
     }
 }

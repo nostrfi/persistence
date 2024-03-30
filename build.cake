@@ -44,8 +44,10 @@ Task("Version")
         UpdateAssemblyInfo = true
     });
     
+    Information($"{ result.fu }")
     version = result.NuGetVersionV2;
-    Information($"Version: { version }");
+       
+       Information($"Version: { version }");
 });
 
 Task("Build")

@@ -1,4 +1,6 @@
-mode: Mainline
+assembly-versioning-scheme: MajorMinorPatch
+assembly-file-versioning-scheme: MajorMinorPatch
+mode: ContinuousDelivery
 branches:
   main:
     tag: ''
@@ -8,8 +10,17 @@ branches:
       - develop
     is-release-branch: true
   develop:
+    mode: ContinuousDeployment
+    tag: alpha
     increment: Minor
-    tag: beta
+    prevent-increment-of-merged-branch-version: false
+    track-merge-target: true
+    regex: ^dev(elop)?(ment)?$
+    source-branches: [ ]
+    tracks-release-branches: true
+    is-release-branch: false
+    is-mainline: false
+    pre-release-weight: 0
   feature:
     increment: Minor
     tag: alpha
