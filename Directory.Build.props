@@ -10,7 +10,7 @@
         <PackageTags>nostr, nostrfi</PackageTags>
         <RootNamespace>Nostrfi</RootNamespace>
         <PackageIcon>nostrfi.png</PackageIcon>
-        <Copyright>Copyright © $([System.DateTime]::Now.ToString("yyyy")) threenine.co.uk</Copyright>
+        <Copyright>Copyright © $([System.DateTime]::Now.ToString("yyyy")) nostrfi.net</Copyright>
     </PropertyGroup>
     <ItemGroup>
         <Content Include="$(MSBuildThisFileDirectory)nostrfi.png" Pack="true" PackagePath="/">

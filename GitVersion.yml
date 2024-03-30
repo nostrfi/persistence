@@ -1,17 +1,34 @@
-mode: Mainline
+assembly-versioning-scheme: MajorMinorPatch
+assembly-file-versioning-scheme: MajorMinorPatch
+mode: ContinuousDelivery
 branches:
-  master:
+  main:
+    mode: ContinuousDelivery
     tag: ''
-    increment: inherit
+    increment: Patch
+    prevent-increment-of-merged-branch-version: true
+    track-merge-target: false
     source-branches:
-      - master
+        - develop
+        - release
+    tracks-release-branches: false
     is-release-branch: true
+    is-mainline: true
+    pre-release-weight: 55000
+  develop:
+    mode: ContinuousDeployment
+    tag: beta
+    increment: Minor
+    prevent-increment-of-merged-branch-version: false
+    track-merge-target: true
+    source-branches: [ ]
+    tracks-release-branches: true
+    is-release-branch: false
+    is-mainline: false
+    pre-release-weight: 0
   feature:
     increment: Minor
     tag: alpha
-  release:
-    increment: Minor
-    tag: beta
     is-release-branch: false
   hotfix:
     increment: Patch

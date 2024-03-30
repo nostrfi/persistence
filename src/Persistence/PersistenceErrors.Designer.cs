@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Nostrfi.Database.Persistence {
+namespace Nostrfi.Relay.Persistence {
     using System;
     
     
@@ -28,7 +28,7 @@ namespace Nostrfi.Database.Persistence {
         internal static System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.Equals(null, resourceMan)) {
-                    System.Resources.ResourceManager temp = new System.Resources.ResourceManager("Nostrfi.Database.Persistence.PersistenceErrors", typeof(PersistenceErrors).Assembly);
+                    System.Resources.ResourceManager temp = new System.Resources.ResourceManager("Nostrfi.Relay.Persistence.PersistenceErrors", typeof(PersistenceErrors).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

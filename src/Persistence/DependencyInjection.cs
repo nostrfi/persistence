@@ -1,9 +1,9 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Nostrfi.Database.Persistence.Exceptions;
+using Nostrfi.Relay.Persistence.Exceptions;
 using Threenine.Database.Extensions;
 
-namespace Nostrfi.Database.Persistence;
+namespace Nostrfi.Relay.Persistence;
 
 public static class DependencyInjection
 {
@@ -16,11 +16,11 @@ public static class DependencyInjection
 
         if (!connectionString.Validate()) throw new NostrDbException(PersistenceErrors.ConnectionStringsInvalid);
 
-        services.AddDbContext<NostrfiContext>(options =>
+        services.AddDbContext<NostrContext>(options =>
         {
             options.UseNpgsql(connectionString, x =>
             {
-                x.MigrationsAssembly(typeof(NostrfiContext).Assembly.FullName);
+                x.MigrationsAssembly(typeof(NostrContext).Assembly.FullName);
                 x.SetPostgresVersion(15, 0);
                 x.EnableRetryOnFailure(10);
             });

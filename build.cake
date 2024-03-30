@@ -4,7 +4,7 @@
 
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
-string version = String.Empty;
+
 const string TEST_COVERAGE_OUTPUT_DIR = "coverage";
 var solution = "Database.sln";
 Task("Clean")
@@ -38,25 +38,31 @@ Task("Restore")
        DotNetRestore(project.ToString(), settings);
      });
 });
-Task("Version")
+/* Task("Version")
     .Does(() => {
    var result = GitVersion(new GitVersionSettings {
         UpdateAssemblyInfo = true
     });
     
-    version = result.NuGetVersionV2;
-    Information($"Version: { version }");
-});
+    
+    version = result;
+       
+       Information($"Version: { version }");
+}); */
 
 Task("Build")
-    .IsDependentOn("Version")
+    .IsDependentOn("Restore")
     .Does(() => {
+    
+     var version = GitVersion(new GitVersionSettings {
+            UpdateAssemblyInfo = true
+        });
      var buildSettings = new DotNetBuildSettings {
                         Configuration = configuration,
                         MSBuildSettings = new DotNetMSBuildSettings()
-                                                      .WithProperty("Version", version)
-                                                      .WithProperty("AssemblyVersion", version)
-                                                      .WithProperty("FileVersion", version)
+                                                      .WithProperty("Version", version.AssemblySemVer)
+                                                      .WithProperty("AssemblyVersion", version.AssemblySemVer)
+                                                      .WithProperty("FileVersion", version.AssemblySemVer)
                        };
      var projects = GetFiles("./**/**/*.csproj");
      foreach(var project in projects )
@@ -118,7 +124,9 @@ Task("Test")
 Task("Pack")
  .IsDependentOn("Test")
  .Does(() => {
- 
+   var version = GitVersion(new GitVersionSettings {
+             UpdateAssemblyInfo = true
+         });
    var settings = new DotNetPackSettings
     {
         Configuration = configuration,
@@ -126,9 +134,9 @@ Task("Pack")
         NoBuild = true,
         NoRestore = true,
         MSBuildSettings = new DotNetMSBuildSettings()
-                        .WithProperty("PackageVersion", version)
+                        .WithProperty("PackageVersion", version.NuGetVersionV2)
                         .WithProperty("Copyright", $"© Copyright nostrfi.net {DateTime.Now.Year}")
-                        .WithProperty("Version", version)
+                        .WithProperty("Version", version.NuGetVersionV2)
     }; 
     
     DotNetPack(solution, settings);

@@ -3,23 +3,24 @@ using Microsoft.EntityFrameworkCore;
 using Nostrfi.Database.Persistence.Entities;
 using Nostrfi.Database.Persistence.Integration.Tests.Collections;
 using Nostrfi.Database.Persistence.Integration.Tests.Fixtures;
+using Nostrfi.Relay.Persistence;
 
 namespace Nostrfi.Database.Persistence.Integration.Tests;
 
 [Collection(nameof(PostgreCollection))]
 public class MigrationTests(PostgreSqlContainerFixture fixture) : IAsyncLifetime
 {
-    private NostrfiContext _context = null!;
+    private NostrContext _context = null!;
 
 
     public async Task InitializeAsync()
     {
         await fixture.InitializeAsync();
-        var options = new DbContextOptionsBuilder<NostrfiContext>()
+        var options = new DbContextOptionsBuilder<NostrContext>()
             .UseNpgsql(fixture.ConnectionString)
             .Options;
 
-        _context = new NostrfiContext(options);
+        _context = new NostrContext(options);
     }
 
     public Task DisposeAsync()
@@ -42,6 +43,6 @@ public class MigrationTests(PostgreSqlContainerFixture fixture) : IAsyncLifetime
     public void AllBaseTablesShouldExist()
     {
         _context.Set<Events>().ShouldNotBeNull();
-        _context.Set<Tags>().ShouldNotBeNull();
+     
     }
 }

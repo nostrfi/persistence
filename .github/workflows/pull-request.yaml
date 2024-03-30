@@ -1,0 +1,30 @@
+name: pull_request
+
+on:
+  pull_request_review:
+    types: [submitted, edited]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+      - name: Check out Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Run the Cake script
+        uses: cake-build/cake-action@v2
+        with:
+          script-path: build.cake
+      - name: Create check run with code coverage Markdown report
+        uses: LouisBrunner/checks-action@v2.0.0
+        if: success()
+        with:
+          token: ${{ github.token }}
+          name: Code Coverage Summary
+          conclusion: ${{ job.status }}
+          output: '{"summary":"Nostrfi relay persistence Code Coverage Summary"}'
+          output_text_description_file: coverage/summary/SummaryGithub.md

@@ -3,7 +3,7 @@
     <PropertyGroup>
         <IsPackable>False</IsPackable>
         <IsTestProject>true</IsTestProject>
-        <RootNamespace>Nostrfi.Database.Persistence.Tests</RootNamespace>
+        <RootNamespace>Nostrfi.Relay.Persistence.Tests</RootNamespace>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="FluentValidation"/>

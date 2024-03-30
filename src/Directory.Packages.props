@@ -11,6 +11,6 @@
         <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0" />
         <PackageVersion Include="Npgsql" Version="8.0.1" />
         <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.0" />
-        <PackageVersion Include="Threenine.Database.Configuration" Version="1.0.7" />
+        <PackageVersion Include="Threenine.Database.Configuration" Version="1.0.8" />
     </ItemGroup>
 </Project>
