@@ -1,6 +1,6 @@
-﻿using Nostrfi.Database.Persistence.Entities.Nostr;
+﻿using Nostrfi.Relay.Persistence.Entities.Nostr;
 
-namespace Nostrfi.Database.Persistence.Entities;
+namespace Nostrfi.Relay.Persistence.Entities;
 
 
 public class Events 

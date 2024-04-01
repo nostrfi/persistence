@@ -1,8 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using Nostrfi.Relay.Persistence;
 using Testcontainers.PostgreSql;
 
-namespace Nostrfi.Database.Persistence.Integration.Tests.Fixtures;
+namespace Nostrfi.Relay.Persistence.Integration.Tests.Fixtures;
 
 public class PostgreSqlContainerFixture
 {

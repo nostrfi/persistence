@@ -1,7 +1,7 @@
 #addin nuget:?package=Cake.Coverlet&version=4.0.1
 #addin nuget:?package=Cake.AzureDevOps&version=4.0.0
 #tool dotnet:?package=GitVersion.Tool&version=5.12.0
-#tool dotnet:?package=dotnet-reportgenerator-globaltool&version=5.2.2
+#tool dotnet:?package=dotnet-reportgenerator-globaltool&version=5.2.4
 
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
@@ -114,6 +114,7 @@ Task("Test")
 Task("Pack")
  .IsDependentOn("Test")
  .Does(() => {
+ 
    var version = GitVersion(new GitVersionSettings {
              UpdateAssemblyInfo = true
          });

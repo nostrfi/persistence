@@ -1,10 +1,9 @@
-using System.Collections.Specialized;
 using FizzWare.NBuilder;
-using Nostrfi.Database.Persistence.Entities.Nostr;
-using Nostrfi.Database.Persistence.Integration.Tests.Collections;
-using Nostrfi.Database.Persistence.Integration.Tests.Fixtures;
+using Nostrfi.Relay.Persistence.Entities.Nostr;
+using Nostrfi.Relay.Persistence.Integration.Tests.Collections;
+using Nostrfi.Relay.Persistence.Integration.Tests.Fixtures;
 
-namespace Nostrfi.Database.Persistence.Integration.Tests.Persistence.Events;
+namespace Nostrfi.Relay.Persistence.Integration.Tests.Persistence.Events;
 
 [Collection(nameof(PostgreCollection))]
 public class EventsAddTests(PostgreSqlContainerFixture fixture) : BasePersistenceTests(fixture)

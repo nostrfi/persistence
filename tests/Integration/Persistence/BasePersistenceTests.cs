@@ -1,9 +1,8 @@
 using Microsoft.EntityFrameworkCore;
-using Nostrfi.Database.Persistence.Integration.Tests.Collections;
-using Nostrfi.Database.Persistence.Integration.Tests.Fixtures;
-using Nostrfi.Relay.Persistence;
+using Nostrfi.Relay.Persistence.Integration.Tests.Collections;
+using Nostrfi.Relay.Persistence.Integration.Tests.Fixtures;
 
-namespace Nostrfi.Database.Persistence.Integration.Tests.Persistence;
+namespace Nostrfi.Relay.Persistence.Integration.Tests.Persistence;
 
 [Collection(nameof(PostgreCollection))]
 public abstract class BasePersistenceTests(PostgreSqlContainerFixture fixture): IAsyncLifetime

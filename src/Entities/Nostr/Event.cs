@@ -1,6 +1,4 @@
-using System.Collections.Specialized;
-
-namespace Nostrfi.Database.Persistence.Entities.Nostr;
+namespace Nostrfi.Relay.Persistence.Entities.Nostr;
 
 public sealed class Event
 {

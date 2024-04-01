@@ -1,4 +1,4 @@
-﻿using Nostrfi.Database.Persistence.Entities;
+﻿using Nostrfi.Relay.Persistence.Entities;
 using Threenine.Database.Extensions;
 
 namespace Nostrfi.Relay.Persistence.Configurations;
