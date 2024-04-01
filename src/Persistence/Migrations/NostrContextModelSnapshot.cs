@@ -3,7 +3,6 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Nostrfi.Database.Persistence;
 using Nostrfi.Relay.Persistence;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -37,7 +36,11 @@ namespace Nostrfi.Database.Persistence.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("received");
 
-                    b.HasKey("Identifier");
+                    b.HasKey("Identifier")
+                        .HasName("identifier");
+
+                    b.HasIndex("Identifier", "Received")
+                        .IsUnique();
 
                     b.ToTable("events", "nostrfi");
                 });
