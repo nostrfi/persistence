@@ -13,9 +13,7 @@ public static class DependencyInjection
         
         if (string.IsNullOrEmpty(connectionString))
             throw new NostrDbException(PersistenceErrors.NoConnectionStringDefined);
-
-        if (!connectionString.Validate()) throw new NostrDbException(PersistenceErrors.ConnectionStringsInvalid);
-
+        
         services.AddDbContext<NostrContext>(options =>
         {
             options.UseNpgsql(connectionString, x =>

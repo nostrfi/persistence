@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Nostrfi.Database.Persistence.Migrations
+namespace Nostrfi.Relay.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class nip01 : Migration
+    public partial class nip_01 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -28,8 +28,15 @@ namespace Nostrfi.Database.Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_events", x => x.identifier);
+                    table.PrimaryKey("identifier", x => x.identifier);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_events_identifier_received",
+                schema: "nostrfi",
+                table: "events",
+                columns: new[] { "identifier", "received" },
+                unique: true);
         }
 
         /// <inheritdoc />
