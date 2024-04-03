@@ -45,7 +45,6 @@ Task("Build")
     .Does(() => {
     
      var version = GitVersion(new GitVersionSettings {
-            UpdateAssemblyInfo = true
         });
      var buildSettings = new DotNetBuildSettings {
                         Configuration = configuration,
@@ -116,7 +115,7 @@ Task("Pack")
  .Does(() => {
  
    var version = GitVersion(new GitVersionSettings {
-             UpdateAssemblyInfo = true
+         
          });
    var settings = new DotNetPackSettings
     {
