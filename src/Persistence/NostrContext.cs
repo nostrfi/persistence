@@ -1,5 +1,5 @@
 using System.Reflection;
-using Nostrfi.Database.Persistence.Entities;
+using Nostrfi.Relay.Persistence.Entities;
 
 namespace Nostrfi.Relay.Persistence;
 
@@ -22,8 +22,8 @@ public class NostrContext : DbContext
     private void TimeStamp()
     {
         var events = ChangeTracker.Entries()
-            .Where(e => e is { Entity: Nostrfi.Database.Persistence.Entities.Events, State: EntityState.Added or EntityState.Modified })
-            .Select(x => x.Entity).Cast<Database.Persistence.Entities.Events>().ToList();
+            .Where(e => e is { Entity: Entities.Events, State: EntityState.Added or EntityState.Modified })
+            .Select(x => x.Entity).Cast<Events>().ToList();
         
         events.ForEach(e =>
         {

@@ -13,7 +13,6 @@
         <ProjectReference Include="..\Entities\Entities.csproj"/>
     </ItemGroup>
     <ItemGroup>
-        <Folder Include="Extensions\"/>
         <Folder Include="Migrations\"/>
     </ItemGroup>
     <ItemGroup>

@@ -1,4 +1,4 @@
-﻿using Nostrfi.Database.Persistence.Entities;
+﻿using Nostrfi.Relay.Persistence.Entities;
 using Threenine.Database.Extensions;
 
 namespace Nostrfi.Relay.Persistence.Configurations;
@@ -9,7 +9,10 @@ public class EventsConfiguration : IEntityTypeConfiguration<Events>
     {
         builder.ToTable(nameof(Events).ToSnakeCase());
         
-        builder.HasKey(e => e.Identifier);
+        builder.HasKey(e => e.Identifier)
+            .HasName(nameof(Events.Identifier).ToSnakeCase());
+
+        builder.HasIndex(x => new { x.Identifier, x.Received }).IsUnique();
         
         builder.Property(x => x.Identifier)
             .HasColumnName(nameof(Events.Identifier).ToSnakeCase())

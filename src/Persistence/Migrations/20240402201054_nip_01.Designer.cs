@@ -4,17 +4,16 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Nostrfi.Database.Persistence;
 using Nostrfi.Relay.Persistence;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace Nostrfi.Database.Persistence.Migrations
+namespace Nostrfi.Relay.Persistence.Migrations
 {
     [DbContext(typeof(NostrContext))]
-    [Migration("20240330200803_nip-01")]
-    partial class nip01
+    [Migration("20240402201054_nip_01")]
+    partial class nip_01
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,7 +27,7 @@ namespace Nostrfi.Database.Persistence.Migrations
             NpgsqlModelBuilderExtensions.HasPostgresExtension(modelBuilder, "uuid-ossp");
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Nostrfi.Database.Persistence.Entities.Events", b =>
+            modelBuilder.Entity("Nostrfi.Relay.Persistence.Entities.Events", b =>
                 {
                     b.Property<Guid>("Identifier")
                         .ValueGeneratedOnAdd()
@@ -40,14 +39,18 @@ namespace Nostrfi.Database.Persistence.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("received");
 
-                    b.HasKey("Identifier");
+                    b.HasKey("Identifier")
+                        .HasName("identifier");
+
+                    b.HasIndex("Identifier", "Received")
+                        .IsUnique();
 
                     b.ToTable("events", "nostrfi");
                 });
 
-            modelBuilder.Entity("Nostrfi.Database.Persistence.Entities.Events", b =>
+            modelBuilder.Entity("Nostrfi.Relay.Persistence.Entities.Events", b =>
                 {
-                    b.OwnsOne("Nostrfi.Database.Persistence.Entities.Nostr.Event", "Event", b1 =>
+                    b.OwnsOne("Nostrfi.Relay.Persistence.Entities.Nostr.Event", "Event", b1 =>
                         {
                             b1.Property<Guid>("EventsIdentifier")
                                 .ValueGeneratedOnAdd()
