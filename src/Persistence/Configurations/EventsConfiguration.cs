@@ -26,6 +26,5 @@ public class EventsConfiguration : IEntityTypeConfiguration<Events>
             .IsRequired();
       
         builder.OwnsOne(ne => ne.Event, b => { b.ToJson().OwnsOne(t => t.Tags, nt => { nt.ToJson();}); });
-    
     }
 }
