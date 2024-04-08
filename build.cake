@@ -46,6 +46,7 @@ Task("Build")
     
      var version = GitVersion(new GitVersionSettings {
         });
+        
      var buildSettings = new DotNetBuildSettings {
                         Configuration = configuration,
                         MSBuildSettings = new DotNetMSBuildSettings()
@@ -117,6 +118,8 @@ Task("Pack")
    var version = GitVersion(new GitVersionSettings {
          
          });
+         
+         Information($"Packing Version : {version.NuGetVersionV2}")
    var settings = new DotNetPackSettings
     {
         Configuration = configuration,
