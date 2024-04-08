@@ -119,7 +119,7 @@ Task("Pack")
          
          });
          
-         Information($"Packing Version : {version.NuGetVersionV2}")
+         Information($"Packing Version : {version.NuGetVersionV2}");
    var settings = new DotNetPackSettings
     {
         Configuration = configuration,
