@@ -7,7 +7,6 @@ public class Events
 {
     public Guid Identifier { get; set; }
     public DateTimeOffset Received { get;  set; } = DateTimeOffset.UtcNow;
-    
     public Event Event { get; set; }
     
 }
