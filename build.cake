@@ -115,9 +115,7 @@ Task("Pack")
  .IsDependentOn("Test")
  .Does(() => {
  
-   var version = GitVersion(new GitVersionSettings {
-         
-         });
+   var version = GitVersion(new GitVersionSettings {});
          
          Information($"Packing Version : {version.NuGetVersionV2}");
    var settings = new DotNetPackSettings

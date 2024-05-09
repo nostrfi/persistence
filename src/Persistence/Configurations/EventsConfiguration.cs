@@ -1,4 +1,5 @@
 ﻿using Nostrfi.Relay.Persistence.Entities;
+using Nostrfi.Relay.Persistence.Entities.Nostr;
 using Threenine.Database.Extensions;
 
 namespace Nostrfi.Relay.Persistence.Configurations;
@@ -25,6 +26,10 @@ public class EventsConfiguration : IEntityTypeConfiguration<Events>
             .HasColumnType(ColumnTypes.DateTimeOffSet)
             .IsRequired();
       
-        builder.OwnsOne(ne => ne.Event, b => { b.ToJson().OwnsOne(t => t.Tags, nt => { nt.ToJson();}); });
+        builder.OwnsOne(ne => ne.Event, b =>
+        {
+           b.ToJson(nameof(Events.Event).ToSnakeCase())
+                .OwnsOne(t => t.Tags, nt => { nt.ToJson(nameof(Events.Event.Tags).ToSnakeCase());});
+        });
     }
 }
