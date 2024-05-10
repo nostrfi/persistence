@@ -43,7 +43,8 @@ public class EventsAddTests(PostgreSqlContainerFixture fixture) : BasePersistenc
             x => x.ShouldNotBeNull(),
             x => x.Event.ShouldNotBeNull(),
             x => x.Event.Tags.ShouldNotBeNull(),
-            x => x.Identifier.ShouldBeOfType<Guid>()
+            x => x.Identifier.ShouldBeOfType<Guid>(),
+            x => x.Event.Content.ShouldBeEquivalentTo(NostrEvent.Content)
         );
     }
 
