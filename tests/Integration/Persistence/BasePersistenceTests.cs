@@ -1,4 +1,7 @@
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Nostrfi.Relay.Persistence.Integration.Tests.Collections;
 using Nostrfi.Relay.Persistence.Integration.Tests.Fixtures;
 
@@ -13,15 +16,25 @@ public abstract class BasePersistenceTests(PostgreSqlContainerFixture fixture): 
     public async Task InitializeAsync()
     {
         await fixture.InitializeAsync();
-        var options = new DbContextOptionsBuilder<NostrContext>()
-            .UseNpgsql(fixture.ConnectionString)
-            .Options;
+        var builder = WebApplication
+            .CreateBuilder();
+        builder.Configuration.AddInMemoryCollection(ConnectionStringConfiguration).Build();
+        builder.Services.AddNostrDatabase(builder.Configuration);
 
-        Context = new NostrContext(options);
+        var app = builder.Build();
+
+        await app.UseNostrDatabaseAsync();
+        var serviceProvider = builder.Services.BuildServiceProvider();
+        Context =  serviceProvider.GetRequiredService<NostrContext>();
     }
 
     public async Task DisposeAsync()
     {
         await Context.DisposeAsync();
     }
+    
+    private Dictionary<string, string> ConnectionStringConfiguration => new()
+    {
+        { "ConnectionStrings:Nostr", $"{fixture.ConnectionString}" }
+    };
 }

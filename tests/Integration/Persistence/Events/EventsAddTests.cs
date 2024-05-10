@@ -11,8 +11,6 @@ public class EventsAddTests(PostgreSqlContainerFixture fixture) : BasePersistenc
     [Fact]
     public void ShouldSaveAnEvent()
     {
-
-
         var dbEvent = new Entities.Events
         {
             Event = NostrEvent

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Nostrfi.Relay.Persistence;
-[ExcludeFromCodeCoverage]
+
 public static class Initialiser
 {
     public static void UseNostrDatabase(this WebApplication app)
