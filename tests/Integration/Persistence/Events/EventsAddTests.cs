@@ -1,4 +1,5 @@
 using FizzWare.NBuilder;
+using Microsoft.EntityFrameworkCore;
 using Nostrfi.Relay.Persistence.Entities.Nostr;
 using Nostrfi.Relay.Persistence.Integration.Tests.Collections;
 using Nostrfi.Relay.Persistence.Integration.Tests.Fixtures;
@@ -19,11 +20,32 @@ public class EventsAddTests(PostgreSqlContainerFixture fixture) : BasePersistenc
         Context.SaveChanges();
 
         var savedEvent = Context.Set<Entities.Events>().FirstOrDefault(e => e.Identifier.Equals(dbEvent.Identifier));
-        Assert.NotNull(savedEvent);
-
-
+        savedEvent.ShouldSatisfyAllConditions(
+            x => x.ShouldNotBeNull(),
+            x => x.Event.ShouldNotBeNull(),
+            x => x.Event.Tags.ShouldNotBeNull(),
+            x => x.Identifier.ShouldBeOfType<Guid>()
+            );
     }
+    [Fact]
+    public async Task ShouldSaveAnEventAsync()
+    {
+        var dbEvent = new Entities.Events
+        {
+            Event = NostrEvent
+        };
+       await Context.Set<Entities.Events>().AddAsync(dbEvent);
+        await Context.SaveChangesAsync();
 
+        var savedEvent = await Context.Set<Entities.Events>().FirstOrDefaultAsync(e => e.Identifier.Equals(dbEvent.Identifier));
+        
+        savedEvent.ShouldSatisfyAllConditions(
+            x => x.ShouldNotBeNull(),
+            x => x.Event.ShouldNotBeNull(),
+            x => x.Event.Tags.ShouldNotBeNull(),
+            x => x.Identifier.ShouldBeOfType<Guid>()
+        );
+    }
 
     private static Event NostrEvent => Builder<Event>.CreateNew()
         .With(x => x.Id = "4376c65d2f232afbe9b882a35baa4f6fe8667c4e684749af565f981833ed6a65")
@@ -43,10 +65,7 @@ public class EventsAddTests(PostgreSqlContainerFixture fixture) : BasePersistenc
         ["e", "3da979448d9ba263864c4d6f14984c423a3838364ec255f03c7904b1ae77f206"],
 
     ];
-    /*new  List<string[]> { "e", ""}
-         new KeyValuePair<string, string>("e", "3da979448d9ba263864c4d6f14984c423a3838364ec255f03c7904b1ae77f206")
-
-     ];*/
+  
 
 }
 
