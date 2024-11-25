@@ -1,6 +1,5 @@
 using System.ComponentModel;
 using Microsoft.EntityFrameworkCore;
-using Nostrfi.Relay.Persistence.Entities;
 using Nostrfi.Relay.Persistence.Integration.Tests.Collections;
 using Nostrfi.Relay.Persistence.Integration.Tests.Fixtures;
 

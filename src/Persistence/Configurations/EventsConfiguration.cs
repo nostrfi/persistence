@@ -9,23 +9,23 @@ public class EventsConfiguration : IEntityTypeConfiguration<Events>
     {
         builder.ToTable(nameof(Events).ToSnakeCase());
         
-        builder.HasKey(e => e.Identifier)
-            .HasName(nameof(Events.Identifier).ToSnakeCase());
+        builder.HasKey(e => e.Id)
+            .HasName(nameof(Events.Id).ToSnakeCase());
 
-        builder.HasIndex(x => new { x.Identifier, x.Received }).IsUnique();
+        builder.HasIndex(x => new { x.Id, x.PublicKey }).IsUnique();
         
-        builder.Property(x => x.Identifier)
-            .HasColumnName(nameof(Events.Identifier).ToSnakeCase())
-            .HasColumnType(ColumnTypes.UniqueIdentifier)
-            .HasDefaultValueSql(PostgreExtensions.UUIDAlgorithm)
+        builder.Property(x => x.Id)
+            .HasColumnName(nameof(Events.Id).ToSnakeCase())
+            .HasColumnType(ColumnTypes.Varchar)
+            .HasMaxLength(85)
             .IsRequired();
         
-        builder.Property(x => x.Received)
-            .HasColumnName(nameof(Events.Received).ToSnakeCase())
+        builder.Property(x => x.CreatedAt)
+            .HasColumnName(nameof(Events.CreatedAt).ToSnakeCase())
             .HasColumnType(ColumnTypes.DateTimeOffSet)
             .IsRequired();
       
-        builder.OwnsOne(ne => ne.Event, b => { b.ToJson().OwnsOne(t => t.Tags, nt => { nt.ToJson();}); });
+        builder.OwnsMany(ne => ne.Tags, b => { b.ToJson();}); 
     
     }
 }

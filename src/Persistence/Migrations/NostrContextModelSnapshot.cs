@@ -47,7 +47,7 @@ namespace Nostrfi.Relay.Persistence.Migrations
 
             modelBuilder.Entity("Nostrfi.Relay.Persistence.Entities.Events", b =>
                 {
-                    b.OwnsOne("Nostrfi.Relay.Persistence.Entities.Nostr.Event", "Event", b1 =>
+                    b.OwnsOne("Nostrfi.Relay.Persistence.Entities.Nostr.Events", "Events", b1 =>
                         {
                             b1.Property<Guid>("EventsIdentifier")
                                 .ValueGeneratedOnAdd()
@@ -75,7 +75,7 @@ namespace Nostrfi.Relay.Persistence.Migrations
 
                             b1.ToTable("events", "nostrfi");
 
-                            b1.ToJson("Event");
+                            b1.ToJson("Events");
 
                             b1.WithOwner()
                                 .HasForeignKey("EventsIdentifier");
@@ -101,7 +101,7 @@ namespace Nostrfi.Relay.Persistence.Migrations
                             b1.Navigation("Tags");
                         });
 
-                    b.Navigation("Event");
+                    b.Navigation("Events");
                 });
 #pragma warning restore 612, 618
         }

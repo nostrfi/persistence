@@ -1,5 +1,5 @@
 using FizzWare.NBuilder;
-using Nostrfi.Relay.Persistence.Entities.Nostr;
+using Nostrfi.Relay.Persistence.Entities;
 using Nostrfi.Relay.Persistence.Integration.Tests.Collections;
 using Nostrfi.Relay.Persistence.Integration.Tests.Fixtures;
 
@@ -15,7 +15,7 @@ public class EventsAddTests(PostgreSqlContainerFixture fixture) : BasePersistenc
 
         var dbEvent = new Entities.Events
         {
-            Event = NostrEvent
+            
         };
         Context.Set<Entities.Events>().Add(dbEvent);
         Context.SaveChanges();
@@ -27,7 +27,7 @@ public class EventsAddTests(PostgreSqlContainerFixture fixture) : BasePersistenc
     }
 
 
-    private static Event NostrEvent => Builder<Event>.CreateNew()
+    private static Entities.Events NostrEvents => Builder<Entities.Events>.CreateNew()
         .With(x => x.Id = "4376c65d2f232afbe9b882a35baa4f6fe8667c4e684749af565f981833ed6a65")
         .With(x => x.PublicKey = "6e468422dfb74a5738702a8823b9b28168abab8655faacb6853cd0ee15deee93")
         .With(x => x.CreatedAt = DateTimeOffset.UtcNow)
