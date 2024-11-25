@@ -3,5 +3,8 @@
         <IsPackable>True</IsPackable>
         <AssemblyName>Nostrfi.Relay.Persistence.Entities</AssemblyName>
     </PropertyGroup>
+    <ItemGroup>
+      <Folder Include="Nostr\" />
+    </ItemGroup>
 
 </Project>

@@ -2,7 +2,6 @@ using System.ComponentModel;
 using Microsoft.EntityFrameworkCore;
 using Nostrfi.Relay.Persistence;
 using Nostrfi.Relay.Persistence.Configurations;
-using Nostrfi.Relay.Persistence.Entities;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata.Conventions;
 
 namespace Nostrfi.Database.Persistence.Unit.Tests.Configurations;
