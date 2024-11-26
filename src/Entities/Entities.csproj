@@ -3,8 +3,5 @@
         <IsPackable>True</IsPackable>
         <AssemblyName>Nostrfi.Persistence.Entities</AssemblyName>
     </PropertyGroup>
-    <ItemGroup>
-      <Folder Include="Nostr\" />
-    </ItemGroup>
 
 </Project>
