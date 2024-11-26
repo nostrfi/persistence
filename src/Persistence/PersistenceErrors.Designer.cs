@@ -7,10 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Nostrfi.Relay.Persistence {
-    using System;
-    
-    
+namespace Nostrfi.Persistence {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -28,7 +25,7 @@ namespace Nostrfi.Relay.Persistence {
         internal static System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.Equals(null, resourceMan)) {
-                    System.Resources.ResourceManager temp = new System.Resources.ResourceManager("Nostrfi.Relay.Persistence.PersistenceErrors", typeof(PersistenceErrors).Assembly);
+                    System.Resources.ResourceManager temp = new System.Resources.ResourceManager("Nostrfi.Persistence.PersistenceErrors", typeof(PersistenceErrors).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

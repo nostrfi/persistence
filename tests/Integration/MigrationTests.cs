@@ -1,9 +1,10 @@
 using System.ComponentModel;
 using Microsoft.EntityFrameworkCore;
-using Nostrfi.Relay.Persistence.Integration.Tests.Collections;
-using Nostrfi.Relay.Persistence.Integration.Tests.Fixtures;
+using Nostrfi.Persistence.Entities;
+using Nostrfi.Persistence.Integration.Tests.Collections;
+using Nostrfi.Persistence.Integration.Tests.Fixtures;
 
-namespace Nostrfi.Relay.Persistence.Integration.Tests;
+namespace Nostrfi.Persistence.Integration.Tests;
 
 [Collection(nameof(PostgreCollection))]
 public class MigrationTests(PostgreSqlContainerFixture fixture) : IAsyncLifetime

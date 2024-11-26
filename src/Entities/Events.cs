@@ -1,10 +1,10 @@
-namespace Nostrfi.Relay.Persistence.Entities;
+namespace Nostrfi.Persistence.Entities;
 
 public sealed class Events
 {
   
   public string Id { get; set; } = string.Empty;
-  public string PublicKey { get; set; } = string.Empty;
+  public string PubKey { get; set; } = string.Empty;
   public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.UtcNow;
   public int Kind { get; set; }
   public string Content { get; set; } = string.Empty;

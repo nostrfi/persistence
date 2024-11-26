@@ -1,9 +1,8 @@
 using FizzWare.NBuilder;
-using Nostrfi.Relay.Persistence.Entities;
-using Nostrfi.Relay.Persistence.Integration.Tests.Collections;
-using Nostrfi.Relay.Persistence.Integration.Tests.Fixtures;
+using Nostrfi.Persistence.Integration.Tests.Collections;
+using Nostrfi.Persistence.Integration.Tests.Fixtures;
 
-namespace Nostrfi.Relay.Persistence.Integration.Tests.Persistence.Events;
+namespace Nostrfi.Persistence.Integration.Tests.Persistence.Events;
 
 [Collection(nameof(PostgreCollection))]
 public class EventsAddTests(PostgreSqlContainerFixture fixture) : BasePersistenceTests(fixture)
@@ -20,7 +19,7 @@ public class EventsAddTests(PostgreSqlContainerFixture fixture) : BasePersistenc
         Context.Set<Entities.Events>().Add(dbEvent);
         Context.SaveChanges();
 
-        var savedEvent = Context.Set<Entities.Events>().FirstOrDefault(e => e.Identifier.Equals(dbEvent.Identifier));
+        var savedEvent = Context.Set<Entities.Events>().FirstOrDefault(e => e.Id.Equals(dbEvent.Id));
         Assert.NotNull(savedEvent);
 
 
@@ -29,7 +28,7 @@ public class EventsAddTests(PostgreSqlContainerFixture fixture) : BasePersistenc
 
     private static Entities.Events NostrEvents => Builder<Entities.Events>.CreateNew()
         .With(x => x.Id = "4376c65d2f232afbe9b882a35baa4f6fe8667c4e684749af565f981833ed6a65")
-        .With(x => x.PublicKey = "6e468422dfb74a5738702a8823b9b28168abab8655faacb6853cd0ee15deee93")
+        .With(x => x.PubKey = "6e468422dfb74a5738702a8823b9b28168abab8655faacb6853cd0ee15deee93")
         .With(x => x.CreatedAt = DateTimeOffset.UtcNow)
         .With(x => x.Kind = 1)
         .With(x => x.Content =

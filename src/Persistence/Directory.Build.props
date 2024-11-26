@@ -1,7 +1,8 @@
 <Project>
     <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))"/>
     <PropertyGroup>
-        <RootNamespace>Nostrfi.Relay.Persistence</RootNamespace>
+        <AssemblyName>Nostrfi.Persistence</AssemblyName>
+        <RootNamespace>Nostrfi.Persistence</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
