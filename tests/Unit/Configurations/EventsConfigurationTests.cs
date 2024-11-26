@@ -1,10 +1,10 @@
 using System.ComponentModel;
 using Microsoft.EntityFrameworkCore;
-using Nostrfi.Relay.Persistence;
-using Nostrfi.Relay.Persistence.Configurations;
+using Nostrfi.Persistence.Configurations;
+using Nostrfi.Persistence.Entities;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata.Conventions;
 
-namespace Nostrfi.Database.Persistence.Unit.Tests.Configurations;
+namespace Nostrfi.Persistence.Unit.Tests.Configurations;
 
 public class EventsConfigurationTests
 {
@@ -50,8 +50,8 @@ public class EventsConfigurationTests
         // Assert
         entityType.ShouldNotBeNull();
 
-        entityType.FindProperty(nameof(Events.Identifier)).ShouldNotBeNull();
-        entityType.FindProperty(nameof(Events.Received)).ShouldNotBeNull();
+        entityType.FindProperty(nameof(Events.Id)).ShouldNotBeNull();
+        entityType.FindProperty(nameof(Events.CreatedAt)).ShouldNotBeNull();
       
       
         
@@ -69,13 +69,13 @@ public class EventsConfigurationTests
         // Assert
         entityType.ShouldNotBeNull();
 
-        var createdAt = entityType.FindProperty(nameof(Events.Received))!.ClrType;
+        var createdAt = entityType.FindProperty(nameof(Events.CreatedAt))!.ClrType;
        
         createdAt.ShouldBe(typeof(DateTimeOffset));
        
-        var signature = entityType.FindProperty(nameof(Events.Identifier))!.ClrType;
+        var sig = entityType.FindProperty(nameof(Events.Sig))!.ClrType;
        
-        signature.ShouldBe(typeof(Guid));
+        sig.ShouldBe(typeof(string));
        
        
     }

@@ -1,3 +1,3 @@
-namespace Nostrfi.Relay.Persistence.Exceptions;
+namespace Nostrfi.Persistence.Exceptions;
 
 public class NostrDbException(string message) : Exception(message);

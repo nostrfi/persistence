@@ -2,12 +2,12 @@ using System.ComponentModel;
 using System.Reflection;
 using System.Resources;
 
-namespace Nostrfi.Database.Persistence.Unit.Tests.Resources;
+namespace Nostrfi.Persistence.Unit.Tests.Resources;
 
 public class PersistenceErrorsTests
 {
-    private const string PersistenceErrorsResourceFileName = "Nostrfi.Relay.Persistence.PersistenceErrors.resources";
-    private const string AssemblyName = "Nostrfi.Relay.Persistence";
+    private const string PersistenceErrorsResourceFileName = "Nostrfi.Persistence.PersistenceErrors.resources";
+    private const string AssemblyName = "Nostrfi.Persistence";
 
     [Fact]
     [Description("Resource file should exist")]
@@ -26,7 +26,7 @@ public class PersistenceErrorsTests
     public void ShouldContainKey(string key)
     {
         var assembly = Assembly.Load(AssemblyName);
-        var resourceManager = new ResourceManager("Nostrfi.Relay.Persistence.PersistenceErrors", assembly);
+        var resourceManager = new ResourceManager("Nostrfi.Persistence.PersistenceErrors", assembly);
         var value = resourceManager.GetString(key);
         value.ShouldNotBeNull();
         value.ShouldNotBeEmpty();

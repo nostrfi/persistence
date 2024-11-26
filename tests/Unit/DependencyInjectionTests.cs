@@ -1,10 +1,9 @@
 using System.ComponentModel;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Nostrfi.Relay.Persistence;
-using Nostrfi.Relay.Persistence.Exceptions;
+using Nostrfi.Persistence.Exceptions;
 
-namespace Nostrfi.Database.Persistence.Unit.Tests;
+namespace Nostrfi.Persistence.Unit.Tests;
 
 public class DependencyInjectionTests
 {

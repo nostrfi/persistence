@@ -1,10 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <IsPackable>True</IsPackable>
-        <AssemblyName>Nostrfi.Relay.Persistence.Entities</AssemblyName>
+        <AssemblyName>Nostrfi.Persistence.Entities</AssemblyName>
     </PropertyGroup>
-    <ItemGroup>
-      <Folder Include="Nostr\" />
-    </ItemGroup>
 
 </Project>

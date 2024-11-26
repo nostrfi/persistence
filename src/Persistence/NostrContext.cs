@@ -1,7 +1,7 @@
 using System.Reflection;
-using Nostrfi.Relay.Persistence.Entities;
+using Nostrfi.Persistence.Entities;
 
-namespace Nostrfi.Relay.Persistence;
+namespace Nostrfi.Persistence;
 
 public class NostrContext : DbContext
 {

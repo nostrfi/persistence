@@ -1,7 +1,7 @@
 <Project>
     <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))"/>
     <PropertyGroup>
-        <RootNamespace>Nostrfi.Relay.Persistence.Integration.Tests</RootNamespace>
+        <RootNamespace>Nostrfi.Persistence.Integration.Tests</RootNamespace>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Testcontainers.PostgreSql"/>
