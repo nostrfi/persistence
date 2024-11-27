@@ -1,5 +1,8 @@
 ﻿using Nostrfi.Persistence.Entities;
 using Threenine.Database.Extensions;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Nostrfi.Persistence.Configurations;
 
@@ -46,10 +49,15 @@ public class EventsConfiguration : IEntityTypeConfiguration<Events>
             .HasColumnType(ColumnTypes.Varchar)
             .HasMaxLength(128)
             .IsRequired();
-      
-        builder.Property(e => e.Tags)
-            .HasColumnName(nameof(Events.Tags).ToSnakeCase())
-            .HasColumnType(ColumnTypes.JsonB);
-    
+
+        /*builder.Property(e => e.Tags)
+            .HasConversion(
+                new ValueConverter<List<string[]>, string>(
+                    b => JsonSerializer.Serialize(b, (JsonSerializerOptions)null),
+                    b => JsonSerializer.Deserialize<List<string[]>>(b, (JsonSerializerOptions)null)
+                )
+            )
+            .HasColumnType(ColumnTypes.JsonB);*/
+
     }
 }
