@@ -1,5 +1,4 @@
 #addin nuget:?package=Cake.Coverlet&version=4.0.1
-#addin nuget:?package=Cake.AzureDevOps&version=4.0.0
 #tool dotnet:?package=GitVersion.Tool&version=5.12.0
 #tool dotnet:?package=dotnet-reportgenerator-globaltool&version=5.2.4
 
@@ -19,7 +18,10 @@ Task("Clean")
     {
         CleanDirectories("./coverage");
         CleanDirectories("./artifacts");
-        DotNetClean(solution);
+        GetFiles("./**/**/*.csproj").ToList().ForEach(project => {
+               Information($"Cleaning: { project.ToString() }");
+               DotNetClean(project.ToString());
+             });  
     }
 });
 
@@ -34,6 +36,7 @@ Task("Restore")
           Verbosity = DotNetVerbosity.Minimal,
           Sources = new [] { "https://api.nuget.org/v3/index.json" }
         };
+        
    GetFiles("./**/**/*.csproj").ToList().ForEach(project => {
        Information($"Restoring { project.ToString() }");
        DotNetRestore(project.ToString(), settings);
@@ -54,12 +57,22 @@ Task("Build")
                                                       .WithProperty("AssemblyVersion", version.AssemblySemVer)
                                                       .WithProperty("FileVersion", version.AssemblySemVer)
                        };
+                       
+    // Build the source project                   
      var projects = GetFiles("./src/**/*.csproj");
      foreach(var project in projects )
      {
-         Information($"Building {project.ToString()}");
+         Information($"Building Source: {project.ToString()}");
          DotNetBuild(project.ToString(),buildSettings);
      }
+     
+     // Build the test projects
+      var testProjects = GetFiles("./tests/**/*.csproj");
+      foreach(var project in testProjects )
+      {
+        Information($"Building Test: {project.ToString()}");
+       DotNetBuild(project.ToString(),buildSettings);
+      }
 });
 
 Task("Test")
@@ -73,7 +86,7 @@ Task("Test")
         var coverageOutput = Directory(TEST_COVERAGE_OUTPUT_DIR);             
      
        GetFiles("./tests/**/*.csproj").ToList().ForEach(project => {
-          Information($"Testing Project : { project.ToString() }");
+          Information($"Code Coverage : { project.ToString() }");
             
           var codeCoverageOutputName = $"{project.GetFilenameWithoutExtension()}.cobertura.xml";
           var coverletSettings = new CoverletSettings {
@@ -130,7 +143,7 @@ Task("Pack")
                         .WithProperty("Version", version.NuGetVersionV2)
     }; 
     
-    DotNetPack(solution, settings);
+     DotNetPack(solution, settings);
      Information($"Packed : { solution }");
  });
 

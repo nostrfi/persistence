@@ -11,6 +11,7 @@
         <RootNamespace>Nostrfi</RootNamespace>
         <PackageIcon>nostrfi.png</PackageIcon>
         <Copyright>Copyright © $([System.DateTime]::Now.ToString("yyyy")) nostrfi.net</Copyright>
+        <NuGetAudit>false</NuGetAudit>
     </PropertyGroup>
     <ItemGroup>
         <Content Include="$(MSBuildThisFileDirectory)nostrfi.png" Pack="true" PackagePath="/">

@@ -17,6 +17,7 @@ public static class Initialiser
     {
         using var scope = app.Services.CreateScope();
         var context = scope.ServiceProvider.GetRequiredService<NostrContext>();
+    
         await context.MigrateAsync();
     }
 }
