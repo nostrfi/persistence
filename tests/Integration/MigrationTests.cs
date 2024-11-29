@@ -11,7 +11,6 @@ public class MigrationTests(PostgreSqlContainerFixture fixture) : IAsyncLifetime
 {
     private NostrContext _context = null!;
 
-
     public async Task InitializeAsync()
     {
         await fixture.InitializeAsync();
@@ -33,15 +32,30 @@ public class MigrationTests(PostgreSqlContainerFixture fixture) : IAsyncLifetime
     public async Task ShouldMigrate()
     {
         var migrations = await _context.Database.GetAppliedMigrationsAsync();
-        migrations.ShouldNotBeNull();
-        migrations.ShouldNotBeEmpty();
-        migrations.Count().ShouldBeGreaterThanOrEqualTo(1);
+
+        migrations.ShouldSatisfyAllConditions(
+            x => x.ShouldNotBeNull(),
+            x => x.ShouldNotBeEmpty(),
+            x => x.Count().ShouldBeGreaterThanOrEqualTo(1)
+        );
     }
 
-    [Fact]
+    [Fact, Description("Verify the core tables exist")]
     public void AllBaseTablesShouldExist()
     {
         _context.Set<Events>().ShouldNotBeNull();
-     
+        _context.Set<Kinds>().ShouldNotBeNull();
+        _context.Set<Tags>().ShouldNotBeNull();
+    }
+
+    [Fact, Description("The Kinds table should exist and have 100 records")]
+    public void KindsShouldExist()
+    {
+        // The first migration we run will have the initial set of 100 Kinds identified
+        // This could change as we continue to evolve this project.
+        _context.Set<Kinds>().ShouldSatisfyAllConditions(
+            x => x.ShouldNotBeNull(),
+            x => x.Count().Should().Be(100)
+        );
     }
 }
