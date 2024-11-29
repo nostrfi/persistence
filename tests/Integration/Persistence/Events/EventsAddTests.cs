@@ -12,15 +12,15 @@ public class EventsAddTests(PostgreSqlContainerFixture fixture) : BasePersistenc
     [Fact]
     public async Task ShouldSaveAnEvent()
     {
-
-
         var dbEvent = NostrEvents;
         
         Context.Set<Entities.Events>().Add(dbEvent);
         await Context.SaveChangesAsync(default);
 
         var savedEvent = await Context.Set<Entities.Events>().FirstOrDefaultAsync(e => e.Id.Equals(dbEvent.Id));
-        Assert.NotNull(savedEvent);
+        
+        savedEvent.Should().NotBeNull();
+ 
 
 
     }

@@ -11,6 +11,8 @@
       <ProjectReference Include="..\..\src\Persistence\Persistence.csproj" />
     </ItemGroup>
     <ItemGroup>
+        <PackageReference Include="Bogus" Version="35.6.1" />
+        <PackageReference Include="Bogus.Text" Version="35.6.1" />
         <PackageReference Include="Microsoft.Extensions.Http" Version="9.0.0"/>
         <PackageReference Include="Spectre.Console" Version="0.49.1"/>
         <PackageReference Include="Spectre.Console.Cli" Version="0.49.1"/>

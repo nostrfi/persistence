@@ -6,6 +6,8 @@
         <RootNamespace>Nostrfi.Relay.Persistence.Tests</RootNamespace>
     </PropertyGroup>
     <ItemGroup>
+        <PackageReference Include="Bogus" />
+        <PackageReference Include="Bogus.Text" />
         <PackageReference Include="FluentValidation"/>
         <PackageReference Include="FluentValidation.DependencyInjectionExtensions"/>
         <PackageReference Include="FluentAssertions"/>
