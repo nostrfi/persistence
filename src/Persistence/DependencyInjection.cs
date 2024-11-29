@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Nostrfi.Persistence.Exceptions;
@@ -17,9 +18,11 @@ public static class DependencyInjection
         {
             options.UseNpgsql(connectionString, x =>
             {
-                x.MigrationsAssembly(typeof(NostrContext).Assembly.FullName);
-                x.SetPostgresVersion(15, 0);
                 x.EnableRetryOnFailure(10);
+                x.MigrationsAssembly(typeof(NostrContext).Assembly.FullName);
+                x.MigrationsHistoryTable(tableName: HistoryRepository.DefaultTableName,
+                    schema: Schema.Name);
+                
             });
         });
         

@@ -13,9 +13,6 @@
         <ProjectReference Include="..\Entities\Entities.csproj"/>
     </ItemGroup>
     <ItemGroup>
-        <Folder Include="Migrations\"/>
-    </ItemGroup>
-    <ItemGroup>
       <EmbeddedResource Update="PersistenceErrors.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>PersistenceErrors.Designer.cs</LastGenOutput>
@@ -27,5 +24,8 @@
         <AutoGen>True</AutoGen>
         <DependentUpon>PersistenceErrors.resx</DependentUpon>
       </Compile>
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Migrations\" />
     </ItemGroup>
 </Project>

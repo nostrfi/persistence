@@ -1,12 +1,9 @@
-﻿using Nostrfi.Persistence.Entities;
+using Nostrfi.Persistence.Entities;
 using Threenine.Database.Extensions;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Nostrfi.Persistence.Configurations;
 
-public class EventsConfiguration : IEntityTypeConfiguration<Events>
+public class EventsConfiguration: IEntityTypeConfiguration<Events>
 {
     public void Configure(EntityTypeBuilder<Events> builder)
     {
@@ -29,8 +26,8 @@ public class EventsConfiguration : IEntityTypeConfiguration<Events>
             .HasMaxLength(65)
             .IsRequired();
         
-        builder.Property(x => x.Kind)
-            .HasColumnName(nameof(Events.Kind).ToLower())
+        builder.Property(x => x.KindId)
+            .HasColumnName(nameof(Events.KindId).ToSnakeCase())
             .HasColumnType(ColumnTypes.Integer)
             .IsRequired();
         
@@ -50,14 +47,9 @@ public class EventsConfiguration : IEntityTypeConfiguration<Events>
             .HasMaxLength(128)
             .IsRequired();
 
-        /*builder.Property(e => e.Tags)
-            .HasConversion(
-                new ValueConverter<List<string[]>, string>(
-                    b => JsonSerializer.Serialize(b, (JsonSerializerOptions)null),
-                    b => JsonSerializer.Deserialize<List<string[]>>(b, (JsonSerializerOptions)null)
-                )
-            )
-            .HasColumnType(ColumnTypes.JsonB);*/
+        builder.HasOne(x => x.Kind)
+            .WithMany(x => x.Events)
+            .HasForeignKey(x => x.KindId);
 
     }
 }

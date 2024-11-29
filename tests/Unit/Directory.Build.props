@@ -1,6 +1,7 @@
 <Project>
     <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))"/>
     <PropertyGroup>
+        <AssemblyName>Nostrfi.Persistence.Unit.Tests</AssemblyName>
         <RootNamespace>Nostrfi.Persistence.Unit.Tests</RootNamespace>
     </PropertyGroup>
     <ItemGroup>

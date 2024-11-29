@@ -16,7 +16,7 @@
         <PackageReference Include="Threenine.Database.Configuration"/>
     </ItemGroup>
     <ItemGroup>
-        <InternalsVisibleTo Include="Unit.Tests"/>
+        <InternalsVisibleTo Include="Nostrfi.Persistence.Unit.Tests"/>
     </ItemGroup>
 
     <ItemGroup>

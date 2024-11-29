@@ -1,4 +1,5 @@
 using System.Reflection;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Nostrfi.Persistence.Entities;
 
 namespace Nostrfi.Persistence;
@@ -9,16 +10,23 @@ public class NostrContext : DbContext
     {
     }
 
-    public DbSet<Events> Events { get; set; } 
+    public DbSet<Events> Events { get; set; }
+    /*protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.ConfigureWarnings(w =>
+        {
+            w.Ignore(CoreEventId.AccidentalEntityType);
+        });
+        base.OnConfiguring(optionsBuilder);
+    }*/
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDefaultSchema(Schema.Name);
         modelBuilder.HasPostgresExtension(PostgreExtensions.UUIDGenerator);
-        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-     
+        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly()); 
         base.OnModelCreating(modelBuilder);
     }
-
    
     public async Task MigrateAsync()
     {
