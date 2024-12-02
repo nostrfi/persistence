@@ -15,19 +15,18 @@ public class TagsConfiguration : IEntityTypeConfiguration<Tags>
             .HasColumnType(ColumnTypes.Varchar)
             .HasMaxLength(65)
             .IsRequired();
-        
+
         builder.Property(x => x.Identifier)
             .HasColumnName(nameof(Tags.Identifier).ToSnakeCase())
             .HasColumnType(ColumnTypes.Varchar)
             .HasMaxLength(35)
             .IsRequired();
-        
+
         builder.Property(t => t.Data)
             .HasColumnType("text[]");
-        
+
         builder.HasOne(x => x.Event)
             .WithMany(x => x.Tags)
             .HasForeignKey(x => x.EventId);
-
     }
 }

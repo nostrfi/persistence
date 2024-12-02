@@ -1,7 +1,5 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using Bogus;
-using FizzWare.NBuilder;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Nostrfi.Persistence;
@@ -15,6 +13,13 @@ public static class AddEventTest
 {
     private static WebApplication _app = null!;
     private static NostrContext _context = null!;
+
+    private static JsonSerializerOptions SerializationOptions => new()
+    {
+        ReferenceHandler = ReferenceHandler.Preserve, // This line handles object references
+        WriteIndented = true, // Optional: makes the output more readable,
+        PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower
+    };
 
     public static async Task Run(WebApplication app)
     {
@@ -39,19 +44,12 @@ public static class AddEventTest
         }
     }
 
-    private static JsonSerializerOptions SerializationOptions => new()
-    {
-        ReferenceHandler = ReferenceHandler.Preserve, // This line handles object references
-        WriteIndented = true, // Optional: makes the output more readable,
-        PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower,
-    };
-
     private static async Task AddSingleEvent()
     {
-        var dbEvent =  new FakeEvents().Generate(1).First();
+        var dbEvent = new FakeEvents().Generate(1).First();
 
         await _context.Set<Events>().AddAsync(dbEvent);
-        await _context.SaveChangesAsync(default);
+        await _context.SaveChangesAsync();
 
         AnsiConsole.Write(
             new Panel(new JsonText(JsonSerializer.Serialize(dbEvent, SerializationOptions)))
@@ -60,11 +58,14 @@ public static class AddEventTest
                 .RoundedBorder()
                 .BorderColor(Color.Blue));
     }
+
     private static async Task AddMultipleEvents()
     {
-        var dbEvents = new FakeEvents().Generate(100);
+        var events = AnsiConsole.Ask<int>("[blue]How many events ?[/]");
+        
+        var dbEvents = new FakeEvents().Generate(events);
         await _context.Set<Events>().AddRangeAsync(dbEvents);
-        await _context.SaveChangesAsync(default);
+        await _context.SaveChangesAsync();
 
         AnsiConsole.Write(
             new Panel(new JsonText(JsonSerializer.Serialize(dbEvents, SerializationOptions)))
@@ -73,5 +74,4 @@ public static class AddEventTest
                 .RoundedBorder()
                 .BorderColor(Color.Blue));
     }
-
 }

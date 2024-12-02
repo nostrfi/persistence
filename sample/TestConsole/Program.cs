@@ -13,4 +13,3 @@ var app = builder.Build();
 await app.UseNostrDatabaseAsync();
 
 await TestSelector.Run(app);
-

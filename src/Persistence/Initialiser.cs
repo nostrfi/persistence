@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Nostrfi.Persistence;
+
 [ExcludeFromCodeCoverage]
 public static class Initialiser
 {
@@ -17,7 +18,7 @@ public static class Initialiser
     {
         using var scope = app.Services.CreateScope();
         var context = scope.ServiceProvider.GetRequiredService<NostrContext>();
-    
+
         await context.MigrateAsync();
     }
 }

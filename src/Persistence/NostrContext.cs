@@ -1,5 +1,4 @@
 using System.Reflection;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 using Nostrfi.Persistence.Entities;
 
 namespace Nostrfi.Persistence;
@@ -24,10 +23,10 @@ public class NostrContext : DbContext
     {
         modelBuilder.HasDefaultSchema(Schema.Name);
         modelBuilder.HasPostgresExtension(PostgreExtensions.UUIDGenerator);
-        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly()); 
+        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         base.OnModelCreating(modelBuilder);
     }
-   
+
     public async Task MigrateAsync()
     {
         await Database.MigrateAsync();

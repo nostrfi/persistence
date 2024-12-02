@@ -40,7 +40,8 @@ public class MigrationTests(PostgreSqlContainerFixture fixture) : IAsyncLifetime
         );
     }
 
-    [Fact, Description("Verify the core tables exist")]
+    [Fact]
+    [Description("Verify the core tables exist")]
     public void AllBaseTablesShouldExist()
     {
         _context.Set<Events>().ShouldNotBeNull();
@@ -48,7 +49,8 @@ public class MigrationTests(PostgreSqlContainerFixture fixture) : IAsyncLifetime
         _context.Set<Tags>().ShouldNotBeNull();
     }
 
-    [Fact, Description("The Kinds table should exist and have 100 records")]
+    [Fact]
+    [Description("The Kinds table should exist and have 100 records")]
     public void KindsShouldExist()
     {
         // The first migration we run will have the initial set of 100 Kinds identified
