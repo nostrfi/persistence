@@ -3,13 +3,14 @@ using Nostrfi.Persistence.Entities;
 
 namespace Nostrfi.Tests;
 
-public sealed class FakeEvents : Faker<Events>
+public sealed class FakeEventsGenerator : Faker<Events>
 {
-    public FakeEvents()
+    public FakeEventsGenerator()
     {
         var tagFaker = new Faker<Tags>()
             .RuleFor(x => x.Identifier, f => "e")
             .RuleFor(x => x.Data, f => [GenerateHashString(64), f.Internet.DomainName()]);
+        
         UseSeed(1)
             .RuleFor(e => e.Id, f => GenerateHashString(64))
             .RuleFor(x => x.PubKey, f => GenerateHashString(64))

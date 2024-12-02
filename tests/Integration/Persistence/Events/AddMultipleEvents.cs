@@ -12,7 +12,6 @@ public class AddMultipleEvents(PostgreSqlContainerFixture fixture) : BasePersist
     public async Task ShouldSaveAnEvent()
     {
         var dbEvents = new EventsFaker().Generate(40);
-        ;
 
         Context.Set<Entities.Events>().AddRange(dbEvents);
         await Context.SaveChangesAsync();
