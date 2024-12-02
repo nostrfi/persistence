@@ -1,7 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-        <AssemblyName>Integration.Tests</AssemblyName>
-    </PropertyGroup>
+   
     <ItemGroup>
         <ProjectReference Include="..\..\src\Persistence\Persistence.csproj"/>
     </ItemGroup>

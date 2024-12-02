@@ -6,10 +6,7 @@ namespace Nostrfi.Persistence.Integration.Tests.Fixtures;
 public class PostgreSqlContainerFixture
 {
     private readonly PostgreSqlContainer _container = new PostgreSqlBuilder()
-        .WithImage("postgres:16.3")
-        .WithDatabase("Nostrfi")
-        .WithPassword("Password12@")
-        .WithUsername("nostrfi")
+        .WithImage("postgres:15.1")
         .Build();
 
     public string ConnectionString => _container.GetConnectionString();
@@ -18,6 +15,12 @@ public class PostgreSqlContainerFixture
     public async Task InitializeAsync()
     {
         await _container.StartAsync();
+        var options = new DbContextOptionsBuilder<NostrContext>()
+            .UseNpgsql(_container.GetConnectionString())
+            .Options;
+
+        var context = new NostrContext(options);
+        await context.Database.MigrateAsync();
     }
 
     public async Task DisposeAsync()
