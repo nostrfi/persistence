@@ -55,7 +55,7 @@ public class EventsAddTests(PostgreSqlContainerFixture fixture) : BasePersistenc
         .With(x => x.Kind = 1)
         .With(x => x.Content =
             "Walled gardens became prisons, and nostr is the first step towards tearing down the prison walls.")
-        .With(x => x.Sig =
+        .With(x => x.Signature =
             "908a15e46fb4d8675bab026fc230a0e3542bfade63da02d542fb78b2a8513fcd0092619a2c8c1221e581946e0191f2af505dfdf8657a414dbca329186f009262")
         .With( x => x.Tags = Tags)
 

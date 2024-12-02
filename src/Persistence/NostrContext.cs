@@ -10,14 +10,6 @@ public class NostrContext : DbContext
     }
 
     public DbSet<Events> Events { get; set; }
-    /*protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder.ConfigureWarnings(w =>
-        {
-            w.Ignore(CoreEventId.AccidentalEntityType);
-        });
-        base.OnConfiguring(optionsBuilder);
-    }*/
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
