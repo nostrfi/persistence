@@ -30,5 +30,5 @@ public class PersistenceErrorsTests
         var value = resourceManager.GetString(key);
         value.ShouldNotBeNull();
         value.ShouldNotBeEmpty();
-    }  
+    }
 }

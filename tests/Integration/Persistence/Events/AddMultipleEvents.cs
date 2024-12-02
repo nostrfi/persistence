@@ -7,16 +7,18 @@ namespace Nostrfi.Persistence.Integration.Tests.Persistence.Events;
 [Collection(nameof(PostgreCollection))]
 public class AddMultipleEvents(PostgreSqlContainerFixture fixture) : BasePersistenceTests(fixture)
 {
-    [Fact, Description("Add Multiple Events (40)")]
+    [Fact]
+    [Description("Add Multiple Events (40)")]
     public async Task ShouldSaveAnEvent()
     {
-        var dbEvents =  new EventsFaker().Generate(40);;
-        
-        Context.Set<Entities.Events>().AddRange(dbEvents);
-        await Context.SaveChangesAsync(default);
+        var dbEvents = new EventsFaker().Generate(40);
+        ;
 
-       Context.Set<Entities.Events>().ShouldSatisfyAllConditions(
-           x => x.Count().Should().Be(40)
-           );
+        Context.Set<Entities.Events>().AddRange(dbEvents);
+        await Context.SaveChangesAsync();
+
+        Context.Set<Entities.Events>().ShouldSatisfyAllConditions(
+            x => x.Count().Should().Be(40)
+        );
     }
 }

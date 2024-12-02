@@ -36,8 +36,7 @@ public class EventsConfigurationTests
         entityType.ShouldNotBeNull();
     }
 
-   
-    
+
     [Fact]
     [Description("Should have a Tags fields Relation")]
     public void ShouldHaveTagsFieldsDefined()
@@ -52,11 +51,8 @@ public class EventsConfigurationTests
 
         entityType.FindProperty(nameof(Events.Id)).ShouldNotBeNull();
         entityType.FindProperty(nameof(Events.CreatedAt)).ShouldNotBeNull();
-      
-      
-        
     }
-    
+
     [Fact]
     [Description("Should have a Tags Relation")]
     public void ShouldHaveTagsFieldsCorrectTypesDefined()
@@ -70,13 +66,11 @@ public class EventsConfigurationTests
         entityType.ShouldNotBeNull();
 
         var createdAt = entityType.FindProperty(nameof(Events.CreatedAt))!.ClrType;
-       
+
         createdAt.ShouldBe(typeof(DateTimeOffset));
-       
+
         var sig = entityType.FindProperty(nameof(Events.Sig))!.ClrType;
-       
+
         sig.ShouldBe(typeof(string));
-       
-       
     }
 }
