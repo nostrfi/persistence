@@ -18,13 +18,16 @@ public static class TestSelector
                 .Title("[green]Test [/] to run")
                 .PageSize(10)
                 .MoreChoicesText("[grey](Move up and down to reveal more test)[/]")
-                .AddChoices("Add Events"));
+                .AddChoices("Add Events", "Get Events"));
 
 
         switch (testToRun)
         {
             case "Add Events":
                 await AddEventTest.Run(application);
+                break;
+            case "Get Events":
+                await GetEventTest.Run(application);
                 break;
         }
 
