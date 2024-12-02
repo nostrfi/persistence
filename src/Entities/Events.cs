@@ -1,12 +1,13 @@
-﻿using Nostrfi.Relay.Persistence.Entities.Nostr;
+namespace Nostrfi.Persistence.Entities;
 
-namespace Nostrfi.Relay.Persistence.Entities;
-
-
-public class Events 
+public sealed class Events
 {
-    public Guid Identifier { get; set; }
-    public DateTimeOffset Received { get;  set; } = DateTimeOffset.UtcNow;
-    public Event Event { get; set; }
-    
+    public string Id { get; set; } = string.Empty;
+    public string PublicKey { get; set; } = string.Empty;
+    public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.UtcNow;
+    public int KindId { get; set; }
+    public Kinds Kind { get; set; }
+    public string Content { get; set; } = string.Empty;
+    public string Signature { get; set; } = string.Empty;
+    public ICollection<Tags> Tags { get; set; } = [];
 }

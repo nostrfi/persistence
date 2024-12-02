@@ -1,10 +1,8 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Nostrfi.Relay.Persistence.Integration.Tests.Collections;
-using Nostrfi.Relay.Persistence.Integration.Tests.Fixtures;
+using Microsoft.EntityFrameworkCore;
+using Nostrfi.Persistence.Integration.Tests.Collections;
+using Nostrfi.Persistence.Integration.Tests.Fixtures;
 
-namespace Nostrfi.Relay.Persistence.Integration.Tests.Persistence;
+namespace Nostrfi.Persistence.Integration.Tests.Persistence;
 
 [Collection(nameof(PostgreCollection))]
 public abstract class BasePersistenceTests(PostgreSqlContainerFixture fixture) : IAsyncLifetime
@@ -15,25 +13,15 @@ public abstract class BasePersistenceTests(PostgreSqlContainerFixture fixture) :
     public async Task InitializeAsync()
     {
         await fixture.InitializeAsync();
-        var builder = WebApplication
-            .CreateBuilder();
-        builder.Configuration.AddInMemoryCollection(ConnectionStringConfiguration).Build();
-        builder.Services.AddNostrDatabase(builder.Configuration);
+        var options = new DbContextOptionsBuilder<NostrContext>()
+            .UseNpgsql(fixture.ConnectionString)
+            .Options;
 
-        var app = builder.Build();
-
-        await app.UseNostrDatabaseAsync();
-        var serviceProvider = builder.Services.BuildServiceProvider();
-        Context =  serviceProvider.GetRequiredService<NostrContext>();
+        Context = new NostrContext(options);
     }
 
     public async Task DisposeAsync()
     {
         await Context.DisposeAsync();
     }
-    
-    private Dictionary<string, string> ConnectionStringConfiguration => new()
-    {
-        { "ConnectionStrings:Nostr", $"{fixture.ConnectionString}" }
-    };
 }

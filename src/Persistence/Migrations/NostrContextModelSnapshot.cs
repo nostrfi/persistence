@@ -3,12 +3,12 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Nostrfi.Relay.Persistence;
+using Nostrfi.Persistence;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace Nostrfi.Relay.Persistence.Migrations
+namespace Nostrfi.Persistence.Migrations
 {
     [DbContext(typeof(NostrContext))]
     partial class NostrContextModelSnapshot : ModelSnapshot
@@ -18,90 +18,132 @@ namespace Nostrfi.Relay.Persistence.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("nostrfi")
-                .HasAnnotation("ProductVersion", "8.0.4")
+                .HasAnnotation("ProductVersion", "9.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.HasPostgresExtension(modelBuilder, "uuid-ossp");
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Nostrfi.Relay.Persistence.Entities.Events", b =>
+            modelBuilder.Entity("Nostrfi.Persistence.Entities.Events", b =>
                 {
-                    b.Property<Guid>("Identifier")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("identifier")
-                        .HasDefaultValueSql("uuid_generate_v4()");
+                    b.Property<string>("Id")
+                        .HasMaxLength(65)
+                        .HasColumnType("varchar")
+                        .HasColumnName("id");
 
-                    b.Property<DateTimeOffset>("Received")
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("content");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("received");
+                        .HasColumnName("created_at");
 
-                    b.HasKey("Identifier")
-                        .HasName("identifier");
+                    b.Property<int>("KindId")
+                        .HasColumnType("integer")
+                        .HasColumnName("kind_id");
 
-                    b.HasIndex("Identifier", "Received")
+                    b.Property<string>("PublicKey")
+                        .IsRequired()
+                        .HasMaxLength(65)
+                        .HasColumnType("varchar")
+                        .HasColumnName("publickey");
+
+                    b.Property<string>("Signature")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("varchar")
+                        .HasColumnName("signature");
+
+                    b.HasKey("Id")
+                        .HasName("id");
+
+                    b.HasIndex("KindId");
+
+                    b.HasIndex("Id", "PublicKey")
                         .IsUnique();
 
                     b.ToTable("events", "nostrfi");
                 });
 
-            modelBuilder.Entity("Nostrfi.Relay.Persistence.Entities.Events", b =>
+            modelBuilder.Entity("Nostrfi.Persistence.Entities.Kinds", b =>
                 {
-                    b.OwnsOne("Nostrfi.Relay.Persistence.Entities.Nostr.Event", "Event", b1 =>
-                        {
-                            b1.Property<Guid>("EventsIdentifier")
-                                .ValueGeneratedOnAdd()
-                                .HasColumnType("uuid");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
-                            b1.Property<string>("Content")
-                                .HasColumnType("text");
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                            b1.Property<DateTimeOffset>("CreatedAt")
-                                .HasColumnType("timestamp with time zone");
+                    b.Property<string>("Description")
+                        .HasColumnType("text")
+                        .HasColumnName("description");
 
-                            b1.Property<string>("Id")
-                                .HasColumnType("text");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(35)
+                        .HasColumnType("varchar")
+                        .HasColumnName("name");
 
-                            b1.Property<int>("Kind")
-                                .HasColumnType("integer");
+                    b.HasKey("Id");
 
-                            b1.Property<string>("PublicKey")
-                                .HasColumnType("text");
+                    b.HasIndex("Name")
+                        .IsUnique();
 
-                            b1.Property<string>("Sig")
-                                .HasColumnType("text");
+                    b.ToTable("kinds", "nostrfi");
+                });
 
-                            b1.HasKey("EventsIdentifier");
+            modelBuilder.Entity("Nostrfi.Persistence.Entities.Tags", b =>
+                {
+                    b.Property<string>("EventId")
+                        .HasMaxLength(65)
+                        .HasColumnType("varchar")
+                        .HasColumnName("event_id");
 
-                            b1.ToTable("events", "nostrfi");
+                    b.Property<string>("Identifier")
+                        .HasMaxLength(35)
+                        .HasColumnType("varchar")
+                        .HasColumnName("identifier");
 
-                            b1.ToJson("event");
+                    b.PrimitiveCollection<string[]>("Data")
+                        .HasColumnType("text[]");
 
-                            b1.WithOwner()
-                                .HasForeignKey("EventsIdentifier");
+                    b.HasKey("EventId", "Identifier");
 
-                            b1.OwnsOne("System.Collections.Generic.List<string[]>", "Tags", b2 =>
-                                {
-                                    b2.Property<Guid>("EventsIdentifier")
-                                        .HasColumnType("uuid");
+                    b.ToTable("tags", "nostrfi");
+                });
 
-                                    b2.Property<int>("Capacity")
-                                        .HasColumnType("integer");
+            modelBuilder.Entity("Nostrfi.Persistence.Entities.Events", b =>
+                {
+                    b.HasOne("Nostrfi.Persistence.Entities.Kinds", "Kind")
+                        .WithMany("Events")
+                        .HasForeignKey("KindId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                                    b2.HasKey("EventsIdentifier");
+                    b.Navigation("Kind");
+                });
 
-                                    b2.ToTable("events", "nostrfi");
-
-                                    b2.ToJson("tags");
-
-                                    b2.WithOwner()
-                                        .HasForeignKey("EventsIdentifier");
-                                });
-
-                            b1.Navigation("Tags");
-                        });
+            modelBuilder.Entity("Nostrfi.Persistence.Entities.Tags", b =>
+                {
+                    b.HasOne("Nostrfi.Persistence.Entities.Events", "Event")
+                        .WithMany("Tags")
+                        .HasForeignKey("EventId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Event");
+                });
+
+            modelBuilder.Entity("Nostrfi.Persistence.Entities.Events", b =>
+                {
+                    b.Navigation("Tags");
+                });
+
+            modelBuilder.Entity("Nostrfi.Persistence.Entities.Kinds", b =>
+                {
+                    b.Navigation("Events");
                 });
 #pragma warning restore 612, 618
         }
