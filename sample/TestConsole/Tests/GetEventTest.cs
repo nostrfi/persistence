@@ -1,6 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Nostrfi.Persistence;
 using Nostrfi.Persistence.Entities;
@@ -9,7 +10,7 @@ using Spectre.Console.Json;
 
 namespace Nostrfi.Tests;
 
-public static class AddEventTest
+public class GetEventTest
 {
     private static WebApplication _app = null!;
     private static NostrContext _context = null!;
@@ -20,7 +21,7 @@ public static class AddEventTest
         WriteIndented = true,                                   // Optional: makes the output more readable,
         PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower
     };
-
+    
     public static async Task Run(WebApplication app)
     {
         _app = app;
@@ -31,45 +32,42 @@ public static class AddEventTest
                 .Title("Which [green] Availability endpoint [/] to run")
                 .PageSize(10)
                 .MoreChoicesText("[grey](Move up and down to reveal more test)[/]")
-                .AddChoices("Add Single Event", "Add Multiple Events"));
+                .AddChoices("Get By Kind", "Get By Tag Value"));
 
         switch (testToRun)
         {
-            case "Add Single Event":
-                await AddSingleEvent();
+            case "Get By Kind":
+                await GetByKind();
                 break;
-            case "Add Multiple Events":
-                await AddMultipleEvents();
+            case "Get By Tag Value":
+                await GetByTagValue();
                 break;
         }
     }
-
-    private static async Task AddSingleEvent()
+    
+    private static async Task GetByKind()
     {
-        var dbEvent = new FakeEventsGenerator().Generate(1).First();
-
-        await _context.Set<Events>().AddAsync(dbEvent);
-        await _context.SaveChangesAsync();
-
+        var kindId = AnsiConsole.Ask<int>("[blue]Which Kind ID to filter against ?[/]");
+        var dbEvents = await _context.Set<Events>().Include(x => x.Tags).Include(x => x.Kind).Where(x => x.KindId.Equals(kindId)).ToListAsync();
+  
+      
         AnsiConsole.Write(
-            new Panel(new JsonText(JsonSerializer.Serialize(dbEvent, SerializationOptions)))
-                .Header("Add Single event")
+            new Panel(new JsonText(JsonSerializer.Serialize(dbEvents, SerializationOptions)))
+                .Header("Retrieved events")
                 .Collapse()
                 .RoundedBorder()
                 .BorderColor(Color.Blue));
     }
-
-    private static async Task AddMultipleEvents()
+    
+    private static async Task GetByTagValue()
     {
-        var events = AnsiConsole.Ask<int>("[blue]How many events ?[/]");
-        
-        var dbEvents = new FakeEventsGenerator().Generate(events);
-        await _context.Set<Events>().AddRangeAsync(dbEvents);
-        await _context.SaveChangesAsync();
-
+        var tagValue = AnsiConsole.Ask<string>("[blue]Tag Value[/]");
+        var dbEvents = await _context.Set<Events>().Include(x => x.Tags).Include(x => x.Kind).SingleAsync(x => x.Tags.Any(tag => tag.Data.Contains(tagValue)));
+  
+      
         AnsiConsole.Write(
             new Panel(new JsonText(JsonSerializer.Serialize(dbEvents, SerializationOptions)))
-                .Header("Add Multiple events")
+                .Header("Retrieved events")
                 .Collapse()
                 .RoundedBorder()
                 .BorderColor(Color.Blue));

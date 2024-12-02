@@ -15,7 +15,8 @@ public sealed class FakeEventsGenerator : Faker<Events>
             .RuleFor(e => e.Id, f => GenerateHashString(64))
             .RuleFor(x => x.PubKey, f => GenerateHashString(64))
             .RuleFor(x => x.CreatedAt, f => DateTimeOffset.Now)
-            .RuleFor(x => x.KindId, 1)
+            
+            .RuleFor(x => x.KindId, new Random().Next(1,9))
             .RuleFor(x => x.Content, f => f.Lorem.Paragraph())
             .RuleFor(x => x.Sig, f => GenerateHashString(124))
             .RuleFor(x => x.Tags, f => tagFaker.Generate(1));
