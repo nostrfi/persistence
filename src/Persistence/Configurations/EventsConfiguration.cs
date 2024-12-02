@@ -12,7 +12,7 @@ public class EventsConfiguration : IEntityTypeConfiguration<Events>
         builder.HasKey(e => e.Id)
             .HasName(nameof(Events.Id).ToSnakeCase());
 
-        builder.HasIndex(x => new { x.Id, PublicKey = x.PubKey }).IsUnique();
+        builder.HasIndex(x => new { x.Id, PublicKey = x.PublicKey }).IsUnique();
 
         builder.Property(x => x.Id)
             .HasColumnName(nameof(Events.Id).ToSnakeCase())
@@ -20,8 +20,8 @@ public class EventsConfiguration : IEntityTypeConfiguration<Events>
             .HasMaxLength(65)
             .IsRequired();
 
-        builder.Property(x => x.PubKey)
-            .HasColumnName(nameof(Events.PubKey).ToLower())
+        builder.Property(x => x.PublicKey)
+            .HasColumnName(nameof(Events.PublicKey).ToLower())
             .HasColumnType(ColumnTypes.Varchar)
             .HasMaxLength(65)
             .IsRequired();
@@ -41,8 +41,8 @@ public class EventsConfiguration : IEntityTypeConfiguration<Events>
             .HasColumnType(ColumnTypes.DateTimeOffSet)
             .IsRequired();
 
-        builder.Property(x => x.Sig)
-            .HasColumnName(nameof(Events.Sig).ToSnakeCase())
+        builder.Property(x => x.Signature)
+            .HasColumnName(nameof(Events.Signature).ToSnakeCase())
             .HasColumnType(ColumnTypes.Varchar)
             .HasMaxLength(128)
             .IsRequired();

@@ -69,7 +69,7 @@ public class EventsConfigurationTests
 
         createdAt.ShouldBe(typeof(DateTimeOffset));
 
-        var sig = entityType.FindProperty(nameof(Events.Sig))!.ClrType;
+        var sig = entityType.FindProperty(nameof(Events.Signature))!.ClrType;
 
         sig.ShouldBe(typeof(string));
     }

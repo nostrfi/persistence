@@ -32,8 +32,7 @@ namespace Nostrfi.Persistence.Migrations
                 {
                     table.PrimaryKey("PK_kinds", x => x.id);
                 });
-            
-             migrationBuilder.InsertData(
+    migrationBuilder.InsertData(
                 table: "kinds",
                 columns: new[] { "id", "name", "description" },
                 values: new object[,]
@@ -140,18 +139,18 @@ namespace Nostrfi.Persistence.Migrations
                     { 31990, "AppHandler", "NIP 89" },
                 }
             );
-
+    
             migrationBuilder.CreateTable(
                 name: "events",
                 schema: "nostrfi",
                 columns: table => new
                 {
                     id = table.Column<string>(type: "varchar", maxLength: 65, nullable: false),
-                    pubkey = table.Column<string>(type: "varchar", maxLength: 65, nullable: false),
+                    publickey = table.Column<string>(type: "varchar", maxLength: 65, nullable: false),
                     created_at = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     kind_id = table.Column<int>(type: "integer", nullable: false),
                     content = table.Column<string>(type: "text", nullable: false),
-                    sig = table.Column<string>(type: "varchar", maxLength: 128, nullable: false)
+                    signature = table.Column<string>(type: "varchar", maxLength: 128, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -187,10 +186,10 @@ namespace Nostrfi.Persistence.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_events_id_pubkey",
+                name: "IX_events_id_publickey",
                 schema: "nostrfi",
                 table: "events",
-                columns: new[] { "id", "pubkey" },
+                columns: new[] { "id", "publickey" },
                 unique: true);
 
             migrationBuilder.CreateIndex(

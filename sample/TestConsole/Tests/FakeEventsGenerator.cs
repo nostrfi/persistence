@@ -13,12 +13,12 @@ public sealed class FakeEventsGenerator : Faker<Events>
         
         UseSeed(1)
             .RuleFor(e => e.Id, f => GenerateHashString(64))
-            .RuleFor(x => x.PubKey, f => GenerateHashString(64))
+            .RuleFor(x => x.PublicKey, f => GenerateHashString(64))
             .RuleFor(x => x.CreatedAt, f => DateTimeOffset.Now)
             
             .RuleFor(x => x.KindId, new Random().Next(1,9))
             .RuleFor(x => x.Content, f => f.Lorem.Paragraph())
-            .RuleFor(x => x.Sig, f => GenerateHashString(124))
+            .RuleFor(x => x.Signature, f => GenerateHashString(124))
             .RuleFor(x => x.Tags, f => tagFaker.Generate(1));
     }
 

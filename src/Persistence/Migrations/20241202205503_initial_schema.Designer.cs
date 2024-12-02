@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Nostrfi.Persistence.Migrations
 {
     [DbContext(typeof(NostrContext))]
-    [Migration("20241129121104_initial_schema")]
+    [Migration("20241202205503_initial_schema")]
     partial class initial_schema
     {
         /// <inheritdoc />
@@ -47,24 +47,24 @@ namespace Nostrfi.Persistence.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("kind_id");
 
-                    b.Property<string>("PubKey")
+                    b.Property<string>("PublicKey")
                         .IsRequired()
                         .HasMaxLength(65)
                         .HasColumnType("varchar")
-                        .HasColumnName("pubkey");
+                        .HasColumnName("publickey");
 
-                    b.Property<string>("Sig")
+                    b.Property<string>("Signature")
                         .IsRequired()
                         .HasMaxLength(128)
                         .HasColumnType("varchar")
-                        .HasColumnName("sig");
+                        .HasColumnName("signature");
 
                     b.HasKey("Id")
                         .HasName("id");
 
                     b.HasIndex("KindId");
 
-                    b.HasIndex("Id", "PubKey")
+                    b.HasIndex("Id", "PublicKey")
                         .IsUnique();
 
                     b.ToTable("events", "nostrfi");
