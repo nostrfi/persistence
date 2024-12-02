@@ -46,7 +46,7 @@ public static class AddEventTest
 
     private static async Task AddSingleEvent()
     {
-        var dbEvent = new FakeEvents().Generate(1).First();
+        var dbEvent = new FakeEventsGenerator().Generate(1).First();
 
         await _context.Set<Events>().AddAsync(dbEvent);
         await _context.SaveChangesAsync();
@@ -63,7 +63,7 @@ public static class AddEventTest
     {
         var events = AnsiConsole.Ask<int>("[blue]How many events ?[/]");
         
-        var dbEvents = new FakeEvents().Generate(events);
+        var dbEvents = new FakeEventsGenerator().Generate(events);
         await _context.Set<Events>().AddRangeAsync(dbEvents);
         await _context.SaveChangesAsync();
 
